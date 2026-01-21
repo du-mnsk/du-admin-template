@@ -1,0 +1,44 @@
+import { Col, Layout, Row } from 'antd'
+import styled from 'styled-components'
+
+import { HeaderFullscreen } from '@/shared/components/layouts/MainLayout/Header/HeaderFullscreen'
+import { ProfileDropdown } from '@/shared/components/layouts/MainLayout/Header/ProfileDropdown'
+import { LAYOUT, media } from '@/styles/themes/constants'
+
+const Header = () => {
+  return (
+    <HeaderWrap>
+      <Row justify="space-between" align="middle">
+        {/* TODO: logo 추가 */}
+        {/* <Col style={{ minWidth: '179px' }}>
+          <img src={logo} alt="admin_logo" width={180} height={24} />
+        </Col> */}
+        <Col>
+          <Row align="middle" justify="end" gutter={[10, 10]}>
+            <Col>
+              <Row gutter={[{ xxl: 10 }, { xxl: 10 }]} align="middle" justify="space-around">
+                <Col>
+                  <HeaderFullscreen />
+                </Col>
+              </Row>
+            </Col>
+            <Col>
+              <ProfileDropdown />
+            </Col>
+          </Row>
+        </Col>
+      </Row>
+    </HeaderWrap>
+  )
+}
+export default Header
+
+
+const HeaderWrap = styled(Layout.Header)`
+  line-height: 1.5;
+
+  @media only screen and ${media.md} {
+    padding: ${LAYOUT.desktop.paddingVertical} ${LAYOUT.desktop.paddingHorizontal};
+    height: ${LAYOUT.desktop.headerHeight};
+  }
+`

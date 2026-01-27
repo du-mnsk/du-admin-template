@@ -78,6 +78,8 @@ export default [
       //unused expressions 사용 가능(?, &&)
       '@typescript-eslint/no-unused-expressions': 'off',
 
+      // boolean 사용 가능 (!!, Boolean())
+      "no-extra-boolean-cast": "off",
       //useEffect에서 setState 사용 가능
       'react-hooks/set-state-in-effect': 'off',
     },

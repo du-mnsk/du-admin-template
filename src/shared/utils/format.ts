@@ -1,7 +1,7 @@
 import type { Dayjs } from 'dayjs'
 import dayjs from 'dayjs'
 
-import { TelecomItems } from '@/shared/constants/common'
+import { TelecomItems } from '@/shared/constants'
 
 /**
  * Unix timestamp 또는 Dayjs 객체를 원하는 포맷으로 변환

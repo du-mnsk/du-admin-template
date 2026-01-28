@@ -3,8 +3,8 @@ import { Layout } from 'antd'
 import styled from 'styled-components'
 
 import { type MainLayoutProps } from '@/shared/components/layouts/MainLayout'
-import SideMenu from '@/shared/components/layouts/MainLayout/Sider/SideMenu'
-import { SiderLogo } from '@/shared/components/layouts/MainLayout/Sider/SiderLogo'
+import SideMenu from '@/shared/components/layouts/MainLayout/Sider/_components/SideMenu'
+import { SiderLogo } from '@/shared/components/layouts/MainLayout/Sider/_components/SiderLogo'
 import { useResponsive } from '@/shared/hooks/useResponsive'
 import { LAYOUT, media } from '@/styles/themes/constants'
 

@@ -13,7 +13,7 @@ import globals from 'globals'
 
 export default [
   {
-    ignores: ['node_modules/**', 'dist/**', 'build/**', '.git/**', '*.config.js'],
+    ignores: ['node_modules/**', 'dist/**', 'build/**', '.git/**', '*.config.js', '.storybook/**'],
   },
   js.configs.recommended,
   ...tseslint.configs.recommended,
@@ -21,6 +21,7 @@ export default [
 
   {
     files: ['**/*.{js,jsx,ts,tsx}'],
+    ignores: ['.storybook/**'],
 
     languageOptions: {
       ecmaVersion: 'latest',
@@ -78,8 +79,9 @@ export default [
       //unused expressions 사용 가능(?, &&)
       '@typescript-eslint/no-unused-expressions': 'off',
 
-      // boolean 사용 가능 (!!, Boolean())
-      "no-extra-boolean-cast": "off",
+      //double negation(!!) 사용 가능
+      'no-extra-boolean-cast': 'off',
+
       //useEffect에서 setState 사용 가능
       'react-hooks/set-state-in-effect': 'off',
     },

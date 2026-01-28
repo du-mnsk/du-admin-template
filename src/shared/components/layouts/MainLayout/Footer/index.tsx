@@ -1,11 +1,12 @@
 import { Layout } from 'antd'
 import styled from 'styled-components'
 
+import { References } from '@/shared/components/du-admin-ui/References'
+
 const Footer = () => {
   return (
     <FooterWrap>
-      {/* TODO: 컴포넌트 추가 후 수정 */}
-      {/* <References /> */}
+      <References year={2026} />
     </FooterWrap>
   )
 }

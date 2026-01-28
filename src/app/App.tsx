@@ -1,3 +1,4 @@
+import React from 'react'
 import { ConfigProvider } from 'antd'
 import koKr from 'antd/lib/locale/ko_KR'
 import dayjs from 'dayjs'
@@ -5,7 +6,7 @@ import dayjs from 'dayjs'
 import { AppRouter } from '@/routes/AppRouter'
 import { GlobalStyle } from '@/styles/GlobalStyle'
 
-dayjs().locale('ko_KR')
+dayjs.locale('ko')
 
 const App: React.FC = () => {
   return (

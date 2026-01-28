@@ -1,6 +1,7 @@
 import { Col, Layout, Row } from 'antd'
 import styled from 'styled-components'
 
+import logo from '@/assets/logo.png'
 import { HeaderFullscreen } from '@/shared/components/layouts/MainLayout/Header/HeaderFullscreen'
 import { ProfileDropdown } from '@/shared/components/layouts/MainLayout/Header/ProfileDropdown'
 import { LAYOUT, media } from '@/styles/themes/constants'
@@ -9,10 +10,10 @@ const Header = () => {
   return (
     <HeaderWrap>
       <Row justify="space-between" align="middle">
-        {/* TODO: logo 추가 */}
-        {/* <Col style={{ minWidth: '179px' }}>
-          <img src={logo} alt="admin_logo" width={180} height={24} />
-        </Col> */}
+        {/* TODO: logo 수정 */}
+        <Col style={{ minWidth: '179px' }}>
+          <img src={logo} alt="admin_logo" width={180}/>
+        </Col>
         <Col>
           <Row align="middle" justify="end" gutter={[10, 10]}>
             <Col>

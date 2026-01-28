@@ -1,41 +1,6 @@
 import { TelecomItems } from '@/shared/constants'
 
 /**
- * 문자열의 앞/뒤를 지정한 길이만큼 마스킹
- *
- * @param value - 마스킹할 원본 문자열
- * @param maskStart - 앞에서부터 마스킹할 자리 수
- * @param maskEnd - 뒤에서부터 마스킹할 자리 수
- * @param maskChar - 마스킹 문자 (기본값: '*')
- * @returns 마스킹된 문자열
- * @example
- * renderMaskingString('12345678', 4, 0)        // '****5678' (앞 4자리 마스킹)
- * renderMaskingString('123456789012', 4, 4) // '****5678****' (앞뒤 4자리 마스킹)
- */
-export const renderMaskingString = (
-  value: string,
-  maskStart: number,
-  maskEnd: number,
-  maskChar: string = '*',
-): string => {
-  if (!value || value.trim() === '' || value === '-') {
-    return '-'
-  }
-
-  const length = value.length
-
-  if (length <= maskStart + maskEnd) {
-    return maskChar.repeat(length)
-  }
-
-  const startMask = maskChar.repeat(maskStart)
-  const endMask = maskChar.repeat(maskEnd)
-  const middle = value.slice(maskStart, length - maskEnd)
-
-  return `${startMask}${middle}${endMask}`
-}
-
-/**
  * 임시 비밀번호 생성
  * 대문자, 소문자, 숫자를 각각 최소 1개 이상 포함
  * @param len - 비밀번호 길이 (기본값: 16)

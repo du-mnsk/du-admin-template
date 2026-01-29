@@ -1,10 +1,9 @@
-//TODO: 파일 생성 후 삭제 예정
+// @app/hooks/useResponsive.ts
+import { useMediaQuery } from "react-responsive"
 
-import { type MediaQueryAllQueryable, type MediaQueryMatchers, useMediaQuery } from 'react-responsive'
+import { BREAKPOINTS, mq } from "@/styles/themes/constants"
 
-import { BREAKPOINTS, media } from '@/styles/themes/constants'
-
-interface ResponsiveReturnValues {
+export interface ResponsiveReturnValues {
   isMobile: boolean
   isTablet: boolean
   isDesktop: boolean
@@ -12,30 +11,28 @@ interface ResponsiveReturnValues {
   mobileOnly: boolean
   tabletOnly: boolean
   desktopOnly: boolean
-  useMediaQuery: (
-    settings: Partial<MediaQueryAllQueryable & { query?: string | undefined }>,
-    device?: MediaQueryMatchers,
-    callback?: (matches: boolean) => void,
-  ) => boolean
 }
 
 export const useResponsive = (): ResponsiveReturnValues => {
-  const isMobile = useMediaQuery({ query: media.xs })
-  const isTablet = useMediaQuery({ query: media.md })
-  const isDesktop = useMediaQuery({ query: media.xl })
-  const isBigScreen = useMediaQuery({ query: media.xxl })
-
   const mobileOnly = useMediaQuery({
-    query: `(max-width: ${BREAKPOINTS.md - 0.02}px)`,
+    query: mq.max(BREAKPOINTS.md),
   })
 
   const tabletOnly = useMediaQuery({
-    query: `(min-width: ${BREAKPOINTS.md}px) and (max-width: ${BREAKPOINTS.xl - 0.02}px)`,
+    query: mq.between(BREAKPOINTS.md, BREAKPOINTS.xl),
   })
 
   const desktopOnly = useMediaQuery({
-    query: `(min-width: ${BREAKPOINTS.xl}px) and (max-width: ${BREAKPOINTS.xxl - 0.02}px)`,
+    query: mq.between(BREAKPOINTS.xl, BREAKPOINTS.xxl),
   })
+
+  const isBigScreen = useMediaQuery({
+    query: mq.min(BREAKPOINTS.xxl),
+  })
+
+  const isMobile = mobileOnly
+  const isTablet = tabletOnly
+  const isDesktop = desktopOnly
 
   return {
     isMobile,
@@ -45,6 +42,5 @@ export const useResponsive = (): ResponsiveReturnValues => {
     mobileOnly,
     tabletOnly,
     desktopOnly,
-    useMediaQuery,
   }
 }

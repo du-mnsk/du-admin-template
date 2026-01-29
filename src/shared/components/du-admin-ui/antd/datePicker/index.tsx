@@ -12,6 +12,8 @@ export interface AntdDatePickerProps extends Omit<PickerDateProps<Dayjs>, 'picke
   picker?: 'date' | 'week' | 'month' | 'quarter' | 'year'
 }
 
+export const AntdRangePicker = DatePicker.RangePicker
+
 export const AntdDatePicker: React.FC<AntdDatePickerProps> = ({ className, ...props }) => {
   return <S.DatePicker className={className} {...props} />
 }

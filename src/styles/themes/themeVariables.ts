@@ -1,6 +1,6 @@
 import { css } from 'styled-components'
 
-import { hexToRGB } from '@/shared/utils/tempUtils'
+import { hexToRGB } from '@/shared/utils/style'
 import { BASE_COLORS } from '@/styles/themes/constants'
 import { lightColorsTheme } from '@/styles/themes/light/lightTheme'
 

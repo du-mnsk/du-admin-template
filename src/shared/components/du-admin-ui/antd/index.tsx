@@ -4,7 +4,7 @@ import { AntdCalendar } from "@/shared/components/du-admin-ui/Antd/calendar";
 import { AntdCard } from "@/shared/components/du-admin-ui/Antd/card";
 import { AntdCarousel } from "@/shared/components/du-admin-ui/Antd/carousel";
 import { AntdCheckbox, AntdCheckboxGroup } from "@/shared/components/du-admin-ui/Antd/checkbox";
-import { AntdDatePicker } from "@/shared/components/du-admin-ui/Antd/datePicker";
+import { AntdDatePicker, AntdRangePicker } from "@/shared/components/du-admin-ui/Antd/datePicker";
 import { AntdDescriptions, AntdDescriptionsItem } from "@/shared/components/du-admin-ui/Antd/descriptions";
 import { AntdDropdown } from "@/shared/components/du-admin-ui/Antd/dropdown";
 import { AntdInput, AntdTextArea } from "@/shared/components/du-admin-ui/Antd/input";
@@ -42,6 +42,7 @@ export const Antd = {
   MenuItem: AntdMenuItem,
   Modal: AntdModal,
   Pagination: AntdPagination,
+  RangePicker: AntdRangePicker,
   SearchInput: AntdSearchInput,
   Select: AntdSelect,
   SelectOption: AntdSelectOption,

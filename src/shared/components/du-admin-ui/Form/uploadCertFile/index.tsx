@@ -15,7 +15,7 @@ import { notificationController } from '@/shared/utils/notificationController'
 import { downloadFile } from '@/shared/utils/tempUtils'
 
 /**
- * 이전 컴포넌트명:FormUploadTelecomCert
+ * @deprecated FormUploadTelecomCert
  * 인증서 파일을 업로드하는 컴포넌트(이미지, pdf 파일)
  */
 

@@ -2,8 +2,8 @@ import { Col, Layout, Row } from 'antd'
 import styled from 'styled-components'
 
 import logo from '@/assets/logo.png'
-import { HeaderFullscreen } from '@/shared/components/layouts/MainLayout/Header/HeaderFullscreen'
-import { ProfileDropdown } from '@/shared/components/layouts/MainLayout/Header/ProfileDropdown'
+import { HeaderFullscreen } from '@/shared/components/layouts/MainLayout/Header/_components/HeaderFullscreen'
+import { ProfileDropdown } from '@/shared/components/layouts/MainLayout/Header/_components/ProfileDropdown'
 import { LAYOUT, media } from '@/styles/themes/constants'
 
 const Header = () => {

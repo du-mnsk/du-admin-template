@@ -3,7 +3,7 @@ import { Select } from 'antd'
 import type { RefSelectProps } from 'antd/lib/select'
 import styled from 'styled-components'
 
-import { normalizeProp } from '@/shared/utils/tempUtils'
+import { formatCssSize } from '@/shared/utils/style'
 import { BORDER_RADIUS, FONT_SIZE,FONT_WEIGHT } from '@/styles/themes/constants'
 
 interface SelectStyleProps {
@@ -47,7 +47,7 @@ const S = {
   Select: styled(Select).withConfig({
     shouldForwardProp: (prop) => !['$width'].includes(prop),
   })<SelectStyleProps>`
-    width: ${(props) => props.$width && normalizeProp(props.$width)};
+    width: ${(props) => props.$width && formatCssSize(props.$width)};
 
     font-weight: ${FONT_WEIGHT.medium};
 

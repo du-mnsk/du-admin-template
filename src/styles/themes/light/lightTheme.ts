@@ -1,6 +1,6 @@
 import { graphic } from 'echarts'
 
-import { shadeColor } from '@/shared/utils/tempUtils'
+import { adjustColorBrightness } from '@/shared/utils/style'
 import { BASE_COLORS } from '@/styles/themes/constants'
 import { type ITheme } from '@/styles/themes/types'
 
@@ -60,7 +60,7 @@ export const lightColorsTheme: ITheme = {
   success: '#30AF5B',
   background: BASE_COLORS.white,
   secondaryBackground: '#F8FBFF',
-  secondaryBackgroundSelected: shadeColor('#F8FBFF', -5),
+  secondaryBackgroundSelected: adjustColorBrightness('#F8FBFF', -5),
   additionalBackground: '#ffffff',
   collapseBackground: '#14743A',
   timelineBackground: '#F8FBFF',

@@ -52,6 +52,7 @@ export const FONT_WEIGHT = {
   black: '900',
 }
 
+
 export const BREAKPOINTS = {
   xs: 360,
   sm: 568,
@@ -61,14 +62,28 @@ export const BREAKPOINTS = {
   xxl: 1920,
 } as const
 
-const getMedia = <T extends number>(breakpoint: T): `(min-width: ${T}px)` =>
-  `(min-width: ${breakpoint}px)`
+/**
+ * media query에서 max-width 경계가 겹칠 때(예: 768 포함 여부) 중복 매칭을 방지하기 위한 보정값
+ * - (max-width: 767.98px) 처럼 약간 줄여서 구간이 명확히 분리되게 함
+ */
+export const Mq_Epsilon = 0.02
 
+export const mq = {
+  min: (bp: number) => `(min-width: ${bp}px)`,
+  max: (bp: number) => `(max-width: ${bp - Mq_Epsilon}px)`,
+  between: (min: number, max: number) =>
+    `(min-width: ${min}px) and (max-width: ${max - Mq_Epsilon}px)`,
+} as const
+
+/**
+ * "이상(min-width)" 기준 쿼리 모음 (필요할 때만 사용)
+ * - 네이밍을 atLeast~로 정직하게 둠
+ */
 export const media = {
-  xs: getMedia(BREAKPOINTS.xs),
-  sm: getMedia(BREAKPOINTS.sm),
-  md: getMedia(BREAKPOINTS.md),
-  lg: getMedia(BREAKPOINTS.lg),
-  xl: getMedia(BREAKPOINTS.xl),
-  xxl: getMedia(BREAKPOINTS.xxl),
-}
+  atLeastXs: mq.min(BREAKPOINTS.xs),
+  atLeastSm: mq.min(BREAKPOINTS.sm),
+  atLeastMd: mq.min(BREAKPOINTS.md),
+  atLeastLg: mq.min(BREAKPOINTS.lg),
+  atLeastXl: mq.min(BREAKPOINTS.xl),
+  atLeastXxl: mq.min(BREAKPOINTS.xxl),
+} as const

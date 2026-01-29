@@ -45,7 +45,7 @@
     "react-hook-form": "^7.69.0",
     "react-infinite-scroll-component": "^6.1.0",
     "react-leaflet": "^4.2.1",
-    "react-responsive": "^10.0.0",
+    "react-responsive": "^10.0.1",
     "react-router-dom": "^7.11.0",
     "react-slick": "^0.30.2",
     "react-verification-input": "^4.2.2",

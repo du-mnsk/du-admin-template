@@ -53,37 +53,29 @@ export const FONT_WEIGHT = {
 }
 
 
-export const BREAKPOINTS = {
+export const BREAKPOINT = {
   xs: 360,
-  sm: 568,
+  sm: 640,
   md: 768,
-  lg: 992,
+  lg: 1024,
   xl: 1280,
   xxl: 1920,
 } as const
 
-/**
- * media query에서 max-width 경계가 겹칠 때(예: 768 포함 여부) 중복 매칭을 방지하기 위한 보정값
- * - (max-width: 767.98px) 처럼 약간 줄여서 구간이 명확히 분리되게 함
- */
-export const Mq_Epsilon = 0.02
+export const MQ_EPSILON = 0.02
 
-export const mq = {
-  min: (bp: number) => `(min-width: ${bp}px)`,
-  max: (bp: number) => `(max-width: ${bp - Mq_Epsilon}px)`,
+export const mediaQuery = {
+  minWidth: (bp: number) => `min-width: ${bp}px`,
+  maxWidth: (bp: number) => `max-width: ${bp - MQ_EPSILON}px`,
   between: (min: number, max: number) =>
-    `(min-width: ${min}px) and (max-width: ${max - Mq_Epsilon}px)`,
+    `min-width: ${min}px and max-width: ${max - MQ_EPSILON}px`,
 } as const
 
-/**
- * "이상(min-width)" 기준 쿼리 모음 (필요할 때만 사용)
- * - 네이밍을 atLeast~로 정직하게 둠
- */
 export const media = {
-  atLeastXs: mq.min(BREAKPOINTS.xs),
-  atLeastSm: mq.min(BREAKPOINTS.sm),
-  atLeastMd: mq.min(BREAKPOINTS.md),
-  atLeastLg: mq.min(BREAKPOINTS.lg),
-  atLeastXl: mq.min(BREAKPOINTS.xl),
-  atLeastXxl: mq.min(BREAKPOINTS.xxl),
+  minXs: mediaQuery.minWidth(BREAKPOINT.xs),
+  minSm: mediaQuery.minWidth(BREAKPOINT.sm),
+  minMd: mediaQuery.minWidth(BREAKPOINT.md),
+  minLg: mediaQuery.minWidth(BREAKPOINT.lg),
+  minXl: mediaQuery.minWidth(BREAKPOINT.xl),
+  minXxl: mediaQuery.minWidth(BREAKPOINT.xxl),
 } as const

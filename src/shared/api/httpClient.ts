@@ -14,7 +14,7 @@ export interface ResponseData<T = any> {
 }
 
 const httpApi = axios.create({
-  baseURL: process.env.REACT_APP_DMRS_SERVER_URL,
+  baseURL: import.meta.env.VITE_DMRS_SERVER_URL,
   withCredentials: true,
 })
 

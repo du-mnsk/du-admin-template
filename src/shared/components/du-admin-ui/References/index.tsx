@@ -24,11 +24,11 @@ const S = {
     flex-wrap: nowrap;
     margin-top: 2rem;
 
-    @media only screen and ${media.sm} {
+    @media only screen and (${media.minSm}) {
       align-items: center;
     }
 
-    @media only screen and ${media.xl} {
+    @media only screen and (${media.minXl}) {
       flex-direction: row;
       justify-content: space-between;
     }
@@ -40,7 +40,7 @@ const S = {
     flex-wrap: wrap;
     margin-bottom: 1rem;
 
-    @media only screen and ${media.xl} {
+    @media only screen and (${media.minXl}) {
       margin-bottom: 0;
     }
   `

@@ -9,7 +9,7 @@ export const FormTitleStyled = styled(Typography.Text)`
   font-size: 1rem;
   display: block;
 
-  @media only screen and ${media.md} {
+  @media only screen and (${media.minMd}) {
     font-size: 1.125rem;
   }
 `
@@ -63,12 +63,12 @@ export const FormItem = styled(Form.Item)<FormItemProps>`
       font-size: 1.25rem;
     }
 
-    @media only screen and ${media.md} {
+    @media only screen and (${media.minMd}) {
       width: 5.5rem;
       font-size: 1.125rem;
     }
 
-    @media only screen and ${media.xl} {
+    @media only screen and (${media.minXl}) {
       font-size: 1.5rem;
     }
   }
@@ -163,7 +163,7 @@ export const FormItem = styled(Form.Item)<FormItemProps>`
   }
 
   &.ant-form-item-with-help {
-    margin-bottom 32px;
+    margin-bottom: 32px;
   }
 `
 

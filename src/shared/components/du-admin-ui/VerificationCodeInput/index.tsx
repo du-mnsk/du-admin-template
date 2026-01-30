@@ -70,7 +70,7 @@ const S = {
       border: 3px solid var(--primary-color);
     }
 
-    @media only screen and ${media.xs} {
+    @media only screen and (${media.minXs}) {
       gap: 0.4375rem;
       .character {
         width: 2.5625rem;
@@ -78,7 +78,7 @@ const S = {
       }
     }
 
-    @media only screen and ${media.md} {
+    @media only screen and (${media.minMd}) {
       gap: 0.625rem;
       .character {
         width: 3.4375rem;
@@ -86,7 +86,7 @@ const S = {
       }
     }
 
-    @media only screen and ${media.xl} {
+    @media only screen and (${media.minXl}) {
       gap: 0.625rem;
       .character {
         width: 3.4375rem;

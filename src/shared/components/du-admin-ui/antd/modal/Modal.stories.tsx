@@ -29,7 +29,7 @@ const meta = {
     },
     cancelText: {
       control: 'text',
-      description: '취소 버튼 텍스트',
+      description: '취소 버튼 텍스트(ReactNode)',
     },
     centered: {
       control: 'boolean',
@@ -54,6 +54,10 @@ const meta = {
       control: 'boolean',
       description: '닫을 때 자식 요소 제거 여부',
     },
+    focusTriggerAfterClose: {
+      control: 'boolean',
+      description: '닫을 때 포커스 초기화 여부',
+    },
     footer: {
       description: '푸터 내용(ReactNode | null)',
     },
@@ -63,6 +67,10 @@ const meta = {
     },
     getContainer: {
       description: '모달이 렌더링될 컨테이너(HTMLElement | () => HTMLElement | false)',
+    },
+    keyboard: {
+      control: 'boolean',
+      description: '키보드 이벤트 허용 여부',
     },
     isLoading: {
       control: 'boolean',
@@ -79,6 +87,9 @@ const meta = {
     maskStyle: {
       control: 'object',
       description: '마스크 스타일(CSSProperties)',
+    },
+    modalRender: {
+      description: '모달 렌더링 함수((node: ReactNode) => ReactNode)',
     },
     okButtonProps: {
       control: 'object',
@@ -153,40 +164,11 @@ export const Default: Story = {
           open={open}
           onOk={() => {
             setOpen(false)
-            args.onOk?.()
+            args.onOk?.({ key: 'ok' } as any)
           }}
           onCancel={() => {
             setOpen(false)
-            args.onCancel?.()
-          }}
-        />
-      </>
-    )
-  },
-}
-
-export const WithTitle: Story = {
-  args: {
-    title: 'Modal Title',
-    children: <p>Some contents...</p>,
-    open: false,
-  },
-  render: function WithTitleStory(args) {
-    const [open, setOpen] = useState(false)
-    
-    return (
-      <>
-        <Antd.Button onClick={() => setOpen(true)}>Open Modal</Antd.Button>
-        <Antd.Modal
-          {...args}
-          open={open}
-          onOk={() => {
-            setOpen(false)
-            args.onOk?.()
-          }}
-          onCancel={() => {
-            setOpen(false)
-            args.onCancel?.()
+            args.onCancel?.({ key: 'cancel' } as any)
           }}
         />
       </>
@@ -212,11 +194,11 @@ export const Small: Story = {
           open={open}
           onOk={() => {
             setOpen(false)
-            args.onOk?.()
+            args.onOk?.({ key: 'ok' } as any)
           }}
           onCancel={() => {
             setOpen(false)
-            args.onCancel?.()
+            args.onCancel?.({ key: 'cancel' } as any)
           }}
         />
       </>
@@ -242,11 +224,11 @@ export const Medium: Story = {
           open={open}
           onOk={() => {
             setOpen(false)
-            args.onOk?.()
+            args.onOk?.({ key: 'ok' } as any)
           }}
           onCancel={() => {
             setOpen(false)
-            args.onCancel?.()
+            args.onCancel?.({ key: 'cancel' } as any)
           }}
         />
       </>
@@ -272,11 +254,11 @@ export const Large: Story = {
           open={open}
           onOk={() => {
             setOpen(false)
-            args.onOk?.()
+            args.onOk?.({ key: 'ok' } as any)
           }}
           onCancel={() => {
             setOpen(false)
-            args.onCancel?.()
+            args.onCancel?.({ key: 'cancel' } as any)
           }}
         />
       </>
@@ -302,11 +284,11 @@ export const Centered: Story = {
           open={open}
           onOk={() => {
             setOpen(false)
-            args.onOk?.()
+            args.onOk?.({ key: 'ok' } as any)
           }}
           onCancel={() => {
             setOpen(false)
-            args.onCancel?.()
+            args.onCancel?.({ key: 'cancel' } as any)
           }}
         />
       </>
@@ -332,7 +314,7 @@ export const WithoutFooter: Story = {
           open={open}
           onCancel={() => {
             setOpen(false)
-            args.onCancel?.()
+            args.onCancel?.({ key: 'cancel' } as any)
           }}
         />
       </>
@@ -363,7 +345,7 @@ export const CustomFooter: Story = {
           open={open}
           onCancel={() => {
             setOpen(false)
-            args.onCancel?.()
+            args.onCancel?.({ key: 'cancel' } as any)
           }}
         />
       </>
@@ -389,11 +371,11 @@ export const WithLoading: Story = {
           open={open}
           onOk={() => {
             setOpen(false)
-            args.onOk?.()
+            args.onOk?.({ key: 'ok' } as any)
           }}
           onCancel={() => {
             setOpen(false)
-            args.onCancel?.()
+            args.onCancel?.({ key: 'cancel' } as any)
           }}
         />
       </>
@@ -420,12 +402,12 @@ export const ConfirmLoading: Story = {
           onOk={() => {
             setTimeout(() => {
               setOpen(false)
-              args.onOk?.()
+              args.onOk?.({ key: 'ok' } as any)
             }, 2000)
           }}
           onCancel={() => {
             setOpen(false)
-            args.onCancel?.()
+            args.onCancel?.({ key: 'cancel' } as any)
           }}
         />
       </>
@@ -451,11 +433,11 @@ export const NotClosable: Story = {
           open={open}
           onOk={() => {
             setOpen(false)
-            args.onOk?.()
+            args.onOk?.({ key: 'ok' } as any)
           }}
           onCancel={() => {
             setOpen(false)
-            args.onCancel?.()
+            args.onCancel?.({ key: 'cancel' } as any)
           }}
         />
       </>
@@ -481,11 +463,11 @@ export const MaskNotClosable: Story = {
           open={open}
           onOk={() => {
             setOpen(false)
-            args.onOk?.()
+            args.onOk?.({ key: 'ok' } as any)
           }}
           onCancel={() => {
             setOpen(false)
-            args.onCancel?.()
+            args.onCancel?.({ key: 'cancel' } as any)
           }}
         />
       </>
@@ -511,11 +493,11 @@ export const DestroyOnClose: Story = {
           open={open}
           onOk={() => {
             setOpen(false)
-            args.onOk?.()
+            args.onOk?.({ key: 'ok' } as any)
           }}
           onCancel={() => {
             setOpen(false)
-            args.onCancel?.()
+            args.onCancel?.({ key: 'cancel' } as any)
           }}
         />
       </>
@@ -541,11 +523,11 @@ export const CustomWidth: Story = {
           open={open}
           onOk={() => {
             setOpen(false)
-            args.onOk?.()
+            args.onOk?.({ key: 'ok' } as any)
           }}
           onCancel={() => {
             setOpen(false)
-            args.onCancel?.()
+            args.onCancel?.({ key: 'cancel' } as any)
           }}
         />
       </>

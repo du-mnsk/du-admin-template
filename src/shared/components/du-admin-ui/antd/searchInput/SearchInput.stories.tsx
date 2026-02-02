@@ -140,13 +140,6 @@ export const WithValue: Story = {
   },
 }
 
-export const WithEnterButton: Story = {
-  args: {
-    enterButton: true,
-    placeholder: '검색어를 입력하세요',
-  },
-}
-
 export const WithCustomEnterButton: Story = {
   args: {
     enterButton: '검색',
@@ -158,21 +151,6 @@ export const WithLoading: Story = {
   args: {
     loading: true,
     placeholder: '검색 중...',
-  },
-}
-
-export const WithFilter: Story = {
-  args: {
-    filter: <Antd.Button size="small">필터</Antd.Button>,
-    placeholder: '검색어를 입력하세요',
-  },
-}
-
-export const WithFilterAndLoading: Story = {
-  args: {
-    loading: true,
-    filter: <Antd.Button size="small">필터</Antd.Button>,
-    placeholder: '검색어를 입력하세요',
   },
 }
 

@@ -45,7 +45,7 @@ const meta = {
     },
     pageSizeOptions: {
       control: 'object',
-      description: '페이지 크기 옵션 배열',
+      description: '페이지 크기 옵션 배열(string[])',
     },
     responsive: {
       control: 'boolean',
@@ -62,6 +62,10 @@ const meta = {
     showSizeChanger: {
       control: 'boolean',
       description: '페이지 크기 변경 표시 여부',
+    },
+    showTitle: {
+      control: 'boolean',
+      description: '제목 표시 여부',
     },
     showTotal: {
       description: '총 항목 수 표시 함수((total: number, range: [number, number]) => ReactNode)',
@@ -117,7 +121,6 @@ export const WithCurrent: Story = {
         current={current}
         onChange={(page) => {
           setCurrent(page)
-          args.onChange?.(page, args.pageSize || 10)
         }}
       />
     )

@@ -48,6 +48,7 @@ const S = {
     shouldForwardProp: (prop) => !['$width'].includes(prop),
   })<SelectStyleProps>`
     width: ${(props) => props.$width && formatCssSize(props.$width)};
+    min-width: 100px;
 
     font-weight: ${FONT_WEIGHT.medium};
 

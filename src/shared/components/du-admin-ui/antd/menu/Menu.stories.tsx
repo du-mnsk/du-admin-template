@@ -104,6 +104,10 @@ const meta = {
       control: 'object',
       description: '기본으로 선택된 메뉴 키 배열',
     },
+    expandIcon: {
+      control: 'object',
+      description: '열림 아이콘 컴포넌트(ReactNode | (props: SubMenuProps & { isSubMenu: boolean }) => ReactNode)',
+    },
     forceSubMenuRender: {
       control: 'boolean',
       description: '서브메뉴 강제 렌더링 여부',
@@ -133,13 +137,17 @@ const meta = {
       control: 'object',
       description: '열려있는 서브메뉴 키 배열',
     },
+    overflowedIndicator: {
+      control: 'object',
+      description: '오버플로우 아이콘 컴포넌트(ReactNode)',
+    },
     selectable: {
       control: 'boolean',
       description: '선택 가능 여부',
     },
     selectedKeys: {
       control: 'object',
-      description: '선택된 메뉴 키 배열',
+      description: '선택된 메뉴 키 배열(string[])',
     },
     style: {
       control: 'object',
@@ -198,12 +206,7 @@ export const Default: Story = {
   },
 }
 
-export const WithItems: Story = {
-  args: {
-    items: menuItems,
-  },
-}
-
+/** MenuItem 비추천. items 속성 사용 권장 */
 export const WithChildren: Story = {
   args: {},
   render: () => (
@@ -224,13 +227,6 @@ export const WithChildren: Story = {
 export const Horizontal: Story = {
   args: {
     mode: 'horizontal',
-    items: menuItems,
-  },
-}
-
-export const Vertical: Story = {
-  args: {
-    mode: 'vertical',
     items: menuItems,
   },
 }
@@ -304,20 +300,6 @@ export const WithOpenKeys: Story = {
         }}
       />
     )
-  },
-}
-
-export const DarkTheme: Story = {
-  args: {
-    theme: 'dark',
-    items: menuItems,
-  },
-}
-
-export const LightTheme: Story = {
-  args: {
-    theme: 'light',
-    items: menuItems,
   },
 }
 

@@ -8,24 +8,20 @@ import { FONT_SIZE, FONT_WEIGHT, media } from '@/styles/themes/constants'
 
 interface AntdSearchInputProps extends SearchProps {
   className?: string
-  filter?: React.ReactNode
 }
 
 // eslint-disable-next-line react/display-name
 export const AntdSearchInput = React.forwardRef<InputRef, AntdSearchInputProps>(
-  ({ loading, filter, ...props }, ref) => {
+  ({ loading, ...props }, ref) => {
     return (
       <S.SearchInput
         ref={ref}
         prefix={<SearchOutlined />}
-        {...(filter && {
-          suffix: (
-            <S.Space align="center">
-              {loading && <Spin size="small" />}
-              {filter}
-            </S.Space>
-          ),
-        })}
+        suffix={
+          <S.Space align="center">
+            {loading && <Spin size="small" />}
+          </S.Space>
+        }
         {...props}
       />
     )
@@ -45,6 +41,10 @@ const S = {
 
     &.ant-input-search-large .ant-input-search-button {
       height: 4.36125rem;
+    }
+
+    &.ant-input-search-small .ant-input-search-button {
+      height: 2.4rem;
     }
 
     & input {

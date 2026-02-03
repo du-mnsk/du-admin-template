@@ -26,7 +26,7 @@ export const AntdCard: React.FC<AntdCardProps> = ({
 
   return (
     <S.Card
-      size={props.size ? props.size : isTablet ? 'default' : 'small'}
+      size={props.size ? props.size : isTablet ? 'small' : 'default'}
       className={className}
       bordered={props.bordered ? props.bordered : false}
       $autoHeight={autoHeight}

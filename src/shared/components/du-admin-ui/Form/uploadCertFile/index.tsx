@@ -21,7 +21,7 @@ import { downloadFile } from '@/shared/utils/tempUtils'
 
 export type TelecomCertAllowedTypes = 'image/png' | 'image/jpeg' | 'application/pdf'
 
-interface FormUploadCertFileProps extends FormUploadDraggerProps {
+export interface FormUploadCertFileProps extends FormUploadDraggerProps {
   allowTypes?: TelecomCertAllowedTypes[]
   downloadURL?: string | UploadChangeParam<UploadFile<any>>
   uploadRequest: UploadRequestOption | undefined

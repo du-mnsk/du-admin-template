@@ -49,12 +49,12 @@ const SiderWrap = styled(Layout.Sider)`
 
   color: var(--text-secondary-color);
 
-  @media only screen and ${media.md} {
+  @media only screen and ${media.minMd} {
     // right: unset;
     left: 0;
   }
 
-  @media only screen and ${media.xl} {
+  @media only screen and ${media.minXl} {
     //position: unset;
     // right: unset;
     left: 0px;
@@ -66,7 +66,7 @@ const SideMenuWrap = styled.div`
   overflow-x: hidden;
   max-height: calc(100vh - ${LAYOUT.mobile.headerHeight});
 
-  @media only screen and ${media.md} {
+  @media only screen and ${media.minMd} {
     max-height: calc(100vh - ${LAYOUT.desktop.headerHeight});
 `
 

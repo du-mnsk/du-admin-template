@@ -19,7 +19,7 @@ import { type FormUploadDraggerProps,type ImageFileAllowedTypes} from '@/shared/
  * 폼 제출시 업로드
  */
 
-interface FormUploadReplaceDraggerProps extends FormUploadDraggerProps {
+export interface FormUploadReplaceDraggerProps extends FormUploadDraggerProps {
   imgUploadRequest: UploadRequestOption | undefined
   setImgUploadRequest: React.Dispatch<React.SetStateAction<UploadRequestOption<any> | undefined>>
 }

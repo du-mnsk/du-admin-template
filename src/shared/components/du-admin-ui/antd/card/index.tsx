@@ -57,7 +57,7 @@ const S = {
         padding-bottom: 0;
       }
 
-      @media only screen and ${media.xl} {
+      @media only screen and ${media.minXl} {
         font-size: ${FONT_SIZE.xxl};
 
         .ant-card-head-title {

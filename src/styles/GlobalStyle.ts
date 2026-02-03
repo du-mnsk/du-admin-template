@@ -1,7 +1,7 @@
 import { createGlobalStyle } from 'styled-components'
 
 import { resetCss } from '@/styles/resetCss'
-import { BREAKPOINTS, FONT_SIZE, FONT_WEIGHT, media } from '@/styles/themes/constants'
+import { BREAKPOINT, FONT_SIZE, FONT_WEIGHT, media } from '@/styles/themes/constants'
 
 import {
   antOverrideCssVariables,
@@ -34,7 +34,7 @@ export const GlobalStyle = createGlobalStyle`
   
   .range-picker {
     & .ant-picker-panels {
-      @media only screen and ${media.xs} and (max-width: ${BREAKPOINTS.md - 0.02}px) {
+      @media only screen and ${media.minXs} and (max-width: ${BREAKPOINT.md - 0.02}px) {
         display: flex;
       flex-direction: column;
       }
@@ -44,12 +44,12 @@ export const GlobalStyle = createGlobalStyle`
   .search-dropdown {
     box-shadow: var(--box-shadow);
 
-    @media only screen and ${media.xs} and (max-width: ${BREAKPOINTS.md - 0.02}px)  {
+    @media only screen and ${media.minXs} and (max-width: ${BREAKPOINT.md - 0.02}px)  {
       width: calc(100vw - 16px);
     max-width: 600px;
     }
 
-    @media only screen and ${media.md} {
+    @media only screen and ${media.minMd} {
       max-width: 323px;
     }
   }

@@ -38,7 +38,7 @@ export default Header
 const HeaderWrap = styled(Layout.Header)`
   line-height: 1.5;
 
-  @media only screen and ${media.md} {
+  @media only screen and ${media.minMd} {
     padding: ${LAYOUT.desktop.paddingVertical} ${LAYOUT.desktop.paddingHorizontal};
     height: ${LAYOUT.desktop.headerHeight};
   }

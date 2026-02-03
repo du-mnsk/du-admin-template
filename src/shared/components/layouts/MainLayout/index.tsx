@@ -61,7 +61,7 @@ const LayoutMain = styled(Layout)<{
   $isPopupWindow: boolean
   $siderToggleState: boolean
 }>`
-  @media only screen and ${media.md} {
+  @media only screen and ${media.minMd} {
     ${(props) =>
       props.$isPopupWindow
         ? css`
@@ -76,7 +76,7 @@ const LayoutMain = styled(Layout)<{
           `}
   }
 
-  @media only screen and ${media.xl} {
+  @media only screen and ${media.minXl} {
     ${(props) =>
       props.$isPopupWindow
         ? css`

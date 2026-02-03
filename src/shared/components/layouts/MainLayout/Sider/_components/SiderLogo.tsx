@@ -41,7 +41,7 @@ const SiderLogoDiv = styled.div<{ $siderToggleState: boolean }>`
           justify-content: space-between;
         `}
 
-  @media only screen and ${media.md} {
+  @media only screen and ${media.minMd} {
     height: ${LAYOUT.desktop.headerHeight};
     padding-top: ${LAYOUT.desktop.paddingVertical};
     padding-bottom: ${LAYOUT.desktop.paddingVertical};

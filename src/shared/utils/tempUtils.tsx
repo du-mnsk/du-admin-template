@@ -6,10 +6,15 @@ import EventEmitter from 'eventemitter3'
 import { saveAs } from 'file-saver'
 import type { UploadRequestOption } from 'rc-upload/lib/interface'
 
+<<<<<<< HEAD
 const httpApi = axios.create({
   baseURL: import.meta.env.VITE_DMRS_SERVER_URL,
   withCredentials: true,
 })
+=======
+import httpApi from '../api/httpClient'
+
+>>>>>>> origin
 
 export const requestRegisterImage = (request: UploadRequestOption, savePath: string) => {
   const formData = new FormData()

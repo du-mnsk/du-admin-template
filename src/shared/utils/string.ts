@@ -37,3 +37,8 @@ export const generateTempPassword = (len = 16): string => {
  */
 export const renderTelecomTypeName = (telecom: number) =>
   TelecomItems.filter((item) => item.value == telecom)[0]?.text || '-'
+
+
+export const isEmptyString = (value: string | undefined | null) => {
+  return !value || value.replaceAll(' ', '').length === 0
+}

@@ -22,8 +22,7 @@ export interface FormCheckboxProps extends FormFieldWrapperProps {
  * @param childrenProps - CheckboxGroup에 전달할 props
  * @param items - Checkbox 아이템 배열
  * @param span - Checkbox 아이템 간격
- */
-/**
+ * @example
  * <Form.Checkbox
  *   colSetProps={{ defaultColSize: 12 }}
  *   formItemProps={{ name: "checkbox", label: "체크박스" }}

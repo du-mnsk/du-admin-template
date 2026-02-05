@@ -1458,8 +1458,8 @@ import { VerificationCodeInput } from '@/shared/components/du-admin-ui/Verificat
 
 모든 컴포넌트는 Storybook에서 확인할 수 있습니다:
 
-- **Antd 컴포넌트**: `Common/Antd.*`
-- **Form 컴포넌트**: `Common/Form.*`
+- **Antd 컴포넌트**: `Common/Antd/Antd.*`
+- **Form 컴포넌트**: `Common/Form/Form.*`
 - **기타 컴포넌트**: 각 컴포넌트의 `.stories.tsx` 파일 참조
 
 각 컴포넌트의 다양한 사용 예시와 props를 Storybook에서 확인하세요.

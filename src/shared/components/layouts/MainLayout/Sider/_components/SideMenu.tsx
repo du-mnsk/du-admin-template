@@ -9,32 +9,32 @@ import useLocalStorage from '@/shared/hooks/useLocalStorage'
 import useRouter from '@/shared/hooks/useRouter'
 import { FONT_SIZE } from '@/styles/themes/constants'
 
-import { type AuthInfo,DomainType } from '../../tempTypes'
+import { type AuthInfo, DomainType } from '../../tempTypes'
 
 const SideMenu = (props: MainLayoutProps) => {
   const { handleToggleSider, siderToggleState } = props
   const [selectedKeys, setSelectedKeys] = useState<string[]>([])
   const [openKeys, setOpenKeys] = useState<string[]>([])
   //TODO: COUPONPROVIDER 추가
-  const { subRoute, mainRoute, authRoutes, togetherAuthRoutes } =
+  const { subRoutes, mainRoute } =
     useRouter()
   const { sessionValue: auth } = useLocalStorage<AuthInfo>('auth')
 
-  let showRoutes: IRoute[] = []
-  if (auth?.Type === DomainType.TOGETHER) {
-    showRoutes = togetherAuthRoutes
+  const showRoutes: IRoute[] = []
+  // if (auth?.Type === DomainType.TOGETHER) {
+  //   showRoutes = togetherAuthRoutes
   // } else if (auth?.Type === DomainType.COUPONPROVIDER) {
   //   showRoutes = couponProviderAuthRoutes
-  } else if (auth) {
-    showRoutes = authRoutes.filter(
-      (route: IRoute, idx: number) => route.path === 'dashboard' || auth.AuthType[idx - 1] == '1',
-    )
-  }
+  // } else if (auth) {
+  //   showRoutes = authRoutes.filter(
+  //     (route: IRoute, idx: number) => route.path === 'dashboard' || auth.AuthType[idx - 1] == '1',
+  //   )
+  // }
 
   useEffect(() => {
-    subRoute && setOpenKeys(subRoute.map((r:IRoute) => r.pageId))
+    subRoutes && setOpenKeys(subRoutes.map((r:IRoute) => r.pageId))
     mainRoute && setSelectedKeys([mainRoute.pageId])
-  }, [subRoute, mainRoute])
+  }, [subRoutes, mainRoute])
 
 
   const getMenuList = (navList: IRoute[], path = '') => {

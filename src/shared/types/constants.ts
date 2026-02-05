@@ -6,6 +6,13 @@ export enum QUERY_NAME {
     EXAMPLE_QUERY_5 = 'ExampleQuery5',
     // usePcodeOptions Example
     SELECT_PARTNER_SELECTION_LIST = 'SelectPartnerSelectionList',
+    // Notice
+    SELECT_NOTICE_LIST = 'SelectNoticeList',
+    SELECT_NOTICE_COUNT = 'SelectNoticeCount',
+    SELECT_NOTICE_DETAIL = 'SelectNoticeDetail',
+    INSERT_NOTICE = 'InsertNotice',
+    UPDATE_NOTICE = 'UpdateNotice',
+    DELETE_NOTICE = 'DeleteNotice',
   }
   
   export enum CMD_TYPE {

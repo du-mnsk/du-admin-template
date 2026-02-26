@@ -24,13 +24,13 @@ const S = {
     flex-wrap: nowrap;
     margin-top: 2rem;
 
-    @media only screen and (${media.minSm}) {
+    @media only screen and (${media.sm}) {
       align-items: center;
     }
 
-    @media only screen and (${media.minXl}) {
+    @media only screen and (${media.xl}) {
       flex-direction: row;
-      justify-content: space-between;
+      justify-content: center;
     }
   `,
   Text: styled.span`
@@ -40,7 +40,7 @@ const S = {
     flex-wrap: wrap;
     margin-bottom: 1rem;
 
-    @media only screen and (${media.minXl}) {
+    @media only screen and (${media.xl}) {
       margin-bottom: 0;
     }
   `

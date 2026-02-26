@@ -11,7 +11,10 @@ import {
   DraggerImage,
   DraggerTitle,
 } from '@/shared/components/du-admin-ui/Form/styled'
-import { type FormUploadDraggerProps,type ImageFileAllowedTypes} from '@/shared/components/du-admin-ui/Form/uploadDragger'
+import {
+  type FormUploadDraggerProps,
+  type ImageFileAllowedTypes,
+} from '@/shared/components/du-admin-ui/Form/uploadDragger'
 
 /**
  * 이미지 파일을 업로드하는 컴포넌트
@@ -64,17 +67,27 @@ const FormUploadReplaceDragger = (props: FormUploadReplaceDraggerProps) => {
         formItemProps={{
           ...props.formItemProps,
           valuePropName: props.formItemProps?.valuePropName ?? 'fileList',
+          //쿠폰 상세이미지 업로드 선택시 에러 방지
+          getValueProps: (value: unknown) => ({
+            fileList: Array.isArray(value) ? value : [],
+          }),
           className: 'upload-dragger-item',
           label: (
-            <Row justify="space-between">
-                <Col>{props.formItemProps?.label}</Col>
-                {previewImage && (
-                  <Col>
-                    <Typography.Link onClick={() => setVisiblePreview(true)}>
-                      미리보기
-                    </Typography.Link>
-                  </Col>
-                )}
+            <Row style={{ width: '100%' }} justify="space-between">
+              <Col>{props.formItemProps?.label}</Col>
+              {previewImage && (
+                <Col>
+                  <Typography.Link
+                    onClick={(e) => {
+                      e.preventDefault()
+                      e.stopPropagation()
+                      setVisiblePreview(true)
+                    }}
+                  >
+                    미리보기
+                  </Typography.Link>
+                </Col>
+              )}
             </Row>
           ),
           children: (

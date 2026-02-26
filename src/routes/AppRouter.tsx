@@ -1,42 +1,40 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { createBrowserRouter, Navigate,RouterProvider } from 'react-router-dom'
 
-import LoginPage from '@/features/login/pages/LoginPage'
+import LoginPage from '@/features/Login/pages/LoginPage'
 import routes from '@/routes'
 import { getRoutes } from '@/routes/helper'
 import togetherRoutes from '@/routes/together'
+import { AuthProvider, useAuth } from '@/shared/auth/AuthProvider'
 import MainLayout from '@/shared/components/layouts/MainLayout'
-import type { AuthInfo } from '@/shared/components/layouts/MainLayout/tempTypes'
 import { DomainType } from '@/shared/components/layouts/MainLayout/tempTypes'
-import useLocalStorage from '@/shared/hooks/useLocalStorage'
 
 export const AppRouter = () => {
-  const { sessionValue: auth } = useLocalStorage<AuthInfo>('auth')
-  const routeList =getRoutes(
-    auth?.Type === DomainType.TOGETHER
-      ? togetherRoutes
-      // : auth?.Type === DomainType.COUPONPROVIDER
-      // ? couponProviderRoutes
-      : routes,
+  return (
+    <AuthProvider>
+      <AppRouterInner />
+    </AuthProvider>
+  )
+}
+
+const AppRouterInner = () => {
+  const auth = useAuth()
+
+  const routeList = getRoutes(
+    auth?.Type === DomainType.TOGETHER ? togetherRoutes : routes,
   )
 
   const router = createBrowserRouter([
     {
-      path: 'login',
+      path: '/login', // ✅ 절대경로
       element: <LoginPage />,
     },
-    // {
-    //   path: 'logout',
-    //   element: <Logout />,
-    // },
     {
       path: '/',
       element: <MainLayout />,
       children: [
+        // ✅ / 진입 시 기본 페이지
+        { index: true, element: <Navigate to="dashboard" replace /> },
         ...routeList,
-        //     {
-        //       path: 'mypage',
-        //       element: <MyPage />,
-        //     },
       ],
     },
   ])

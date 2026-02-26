@@ -2,8 +2,8 @@ import React from 'react'
 import { Col, type MenuProps, Row } from 'antd'
 import styled from 'styled-components'
 
+import { useAuth } from '@/shared/auth/AuthProvider'
 import { Antd } from "@/shared/components/du-admin-ui/Antd"
-import useLocalStorage from '@/shared/hooks/useLocalStorage'
 import { useResponsive } from '@/shared/hooks/useResponsive'
 import { media } from '@/styles/themes/constants'
 
@@ -14,7 +14,7 @@ const HeaderActionWrapper = styled.div`
   .ant-badge {
     font-size: 1.25rem;
 
-    @media only screen and (${media.minMd}) {
+    @media only screen and (${media.md}) {
       font-size: 1.625rem;
     }
   }
@@ -27,7 +27,7 @@ const HeaderActionWrapper = styled.div`
 export const ProfileDropdownHeader = styled(HeaderActionWrapper)`
   cursor: pointer;
 
-  @media only screen and (${media.minMd}) {
+  @media only screen and (${media.md}) {
     border-radius: 50px;
     padding: 0.3125rem 0.2rem;
   }
@@ -38,7 +38,7 @@ export const ProfileDropdownMenu = styled.a`
   font-weight: 600;
   line-height: 2rem;
 
-  @media only screen and (${media.minMd}) {
+  @media only screen and (${media.md}) {
     font-size: 1rem;
   }
 `
@@ -64,19 +64,20 @@ const items: MenuProps['items'] = [
   },
 ]
 
+const FALLBACK_USER = { UserName: '템플릿유저', UserID: 'template' }
+
 export const ProfileDropdown: React.FC = () => {
   const { isTablet } = useResponsive()
-  const { sessionValue: auth } = useLocalStorage<any>('auth')
+  const auth = useAuth()
+  const displayUser = auth ?? FALLBACK_USER
 
-  return auth ? (
+  return (
     <Antd.Dropdown menu={{ items }} trigger={['click']} overlayStyle={{ minWidth: '125px' }}>
       <ProfileDropdownHeader as={Row} gutter={[10, 10]} align="middle">
-        {isTablet && (
-          <Col>
-            <span>{`${auth?.UserName} [${auth?.UserID}]`}</span>
-          </Col>
-        )}
+        <Col>
+          <span>{isTablet ? `${displayUser.UserName} [${displayUser.UserID}]` : displayUser.UserName}</span>
+        </Col>
       </ProfileDropdownHeader>
     </Antd.Dropdown>
-  ) : null
+  )
 }

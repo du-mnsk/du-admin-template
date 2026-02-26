@@ -1,7 +1,7 @@
 import { createGlobalStyle } from 'styled-components'
 
 import { resetCss } from '@/styles/resetCss'
-import { BREAKPOINT, FONT_SIZE, FONT_WEIGHT, media } from '@/styles/themes/constants'
+import { BREAKPOINTS, FONT_SIZE, FONT_WEIGHT, media, mediaQuery } from '@/styles/themes/constants'
 
 import {
   antOverrideCssVariables,
@@ -12,11 +12,9 @@ import {
 export const GlobalStyle = createGlobalStyle`
 
   ${resetCss}
-
-  // * {
-  //   font-feature-settings:'tnum';
-  // }
-
+  body {
+  font-family: "Pretendard Variable", Pretendard, sans-serif;
+}
   [data-theme='light'],
   :root {
     ${lightThemeVariables}
@@ -34,9 +32,9 @@ export const GlobalStyle = createGlobalStyle`
   
   .range-picker {
     & .ant-picker-panels {
-      @media only screen and ${media.minXs} and (max-width: ${BREAKPOINT.md - 0.02}px) {
+      @media only screen and (${mediaQuery.between(BREAKPOINTS.xs, BREAKPOINTS.md)}) {
         display: flex;
-      flex-direction: column;
+        flex-direction: column;
       }
     }
   }
@@ -44,12 +42,12 @@ export const GlobalStyle = createGlobalStyle`
   .search-dropdown {
     box-shadow: var(--box-shadow);
 
-    @media only screen and ${media.minXs} and (max-width: ${BREAKPOINT.md - 0.02}px)  {
+    @media only screen and (${mediaQuery.between(BREAKPOINTS.xs, BREAKPOINTS.md)}) {
       width: calc(100vw - 16px);
-    max-width: 600px;
+      max-width: 600px;
     }
 
-    @media only screen and ${media.minMd} {
+    @media only screen and (${media.md}) {
       max-width: 323px;
     }
   }
@@ -98,7 +96,9 @@ export const GlobalStyle = createGlobalStyle`
     color: var(--text-light-color);
   }
 
-  .ant-table-container {
+  /* 테이블 가로 스크롤: Ant Design 5는 .ant-table-body에 스크롤 적용 */
+  .ant-table-container,
+  .ant-table-body {
     overflow-x: auto;
   }
 

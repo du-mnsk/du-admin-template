@@ -34,7 +34,7 @@ const Text = styled(Typography.Text)`
     display: block;
   }
 
-  @media only screen and (${media.minMd}) {
+  @media only screen and (${media.md}) {
     font-size: 1rem;
   }
 `

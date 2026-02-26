@@ -1,0 +1,40 @@
+/* TemplateLayout: Row/Col 레이아웃 시 반응형 column 배치 */
+.template-layout-row {
+  width: 100%;
+}
+
+.template-layout-row.template-layout-column-sm > .ant-row {
+  flex-direction: column;
+}
+
+@media (min-width: 768px) {
+  .template-layout-row.template-layout-column-sm > .ant-row {
+    flex-direction: row;
+  }
+}
+
+@media (min-width: 992px) {
+  .template-layout-row.template-layout-column-md > .ant-row {
+    flex-direction: row;
+  }
+}
+
+@media (min-width: 1200px) {
+  .template-layout-row.template-layout-column-lg > .ant-row {
+    flex-direction: row;
+  }
+}
+
+.template-layout-row.template-layout-column-lg > .ant-row {
+  flex-direction: column;
+}
+
+.template-layout-row.template-layout-column-xl > .ant-row {
+  flex-direction: column;
+}
+
+@media (min-width: 1200px) {
+  .template-layout-row.template-layout-column-xl > .ant-row {
+    flex-direction: row;
+  }
+}

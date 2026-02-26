@@ -1,6 +1,6 @@
 import type { Notice } from '@/features/Notice/types'
+import { dmrsApi, type ListApiRequest, type SelectRequestBodyData } from '@/shared/api'
 import type { DmrsCuidBody, DmrsResponse } from '@/shared/api/api.types'
-import { dmrsApi, type ListApiRequest, type SelectRequestBodyData } from '@/shared/api/dmrsApi'
 import { QUERY_NAME } from '@/shared/types/constants'
 
 /**
@@ -75,8 +75,9 @@ export const InsertNoticeQueryOption = () => {
           notice.Title,
           notice.ShowFlag,
           notice.Contents,
-          notice.StartTime  null,
-          notice.EndTime || null,
+          // TODO: 시간 형식 변환
+          notice.StartTime ? (typeof notice.StartTime === 'number' ? notice.StartTime : notice.StartTime.unix()) : null,
+          notice.EndTime ? (typeof notice.EndTime === 'number' ? notice.EndTime : notice.EndTime.unix()) : null,
         ],
       })
     },
@@ -97,8 +98,8 @@ export const UpdateNoticeQueryOption = () => {
           notice.Title,
           notice.ShowFlag,
           notice.Contents,
-          notice.StartTime || null,
-          notice.EndTime || null,
+          notice.StartTime ? (typeof notice.StartTime === 'number' ? notice.StartTime : notice.StartTime.unix()) : null,
+          notice.EndTime ? (typeof notice.EndTime === 'number' ? notice.EndTime : notice.EndTime.unix()) : null,
         ],
       })
     },

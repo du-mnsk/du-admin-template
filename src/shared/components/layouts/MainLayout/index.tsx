@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { Layout } from 'antd'
 import styled, { css } from 'styled-components'
@@ -18,9 +18,18 @@ export interface MainLayoutProps {
 
 const MainLayout = () => {
   const navigate = useNavigate()
-  const { isTablet } = useResponsive()
+  const { isTablet, mobileOnly, tabletOnly } = useResponsive()
   const { pathname } = useLocation()
   const [siderToggleState, setSiderToggleState] = useState<boolean>(!isTablet)
+  const prevNarrowRef = useRef(mobileOnly || tabletOnly)
+
+  const isNarrow = mobileOnly || tabletOnly
+  useEffect(() => {
+    if (isNarrow && !prevNarrowRef.current) {
+      setSiderToggleState(true)
+    }
+    prevNarrowRef.current = isNarrow
+  }, [isNarrow])
 
   const { sessionValue: auth } = useLocalStorage<any>('auth')
 
@@ -45,7 +54,7 @@ const MainLayout = () => {
     <LayoutMaster>
       {!props.isPopupWindow && <Sider {...props} />}
       <LayoutMain $isPopupWindow={props.isPopupWindow} $siderToggleState={props.siderToggleState}>
-        <Header />
+        <Header {...props} />
         <Contents />
       </LayoutMain>
     </LayoutMaster>
@@ -61,7 +70,9 @@ const LayoutMain = styled(Layout)<{
   $isPopupWindow: boolean
   $siderToggleState: boolean
 }>`
-  @media only screen and ${media.minMd} {
+  margin-left: 0;
+
+  @media only screen and (${media.md}) {
     ${(props) =>
       props.$isPopupWindow
         ? css`
@@ -76,7 +87,7 @@ const LayoutMain = styled(Layout)<{
           `}
   }
 
-  @media only screen and ${media.minXl} {
+  @media only screen and (${media.xl}) {
     ${(props) =>
       props.$isPopupWindow
         ? css`

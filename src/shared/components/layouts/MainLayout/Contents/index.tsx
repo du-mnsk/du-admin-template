@@ -25,7 +25,7 @@ const ContentsWrap = styled(Layout.Content)`
   flex-direction: column;
   justify-content: start;
 
-  @media only screen and (${media.minMd}) {
+  @media only screen and (${media.md}) {
     padding: ${LAYOUT.desktop.paddingVertical} ${LAYOUT.desktop.paddingHorizontal};
   }
 `

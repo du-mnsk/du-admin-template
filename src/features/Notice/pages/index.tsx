@@ -12,7 +12,7 @@ import {
 } from '@/features/Notice/api'
 import { NoticeContentsTypeItems } from '@/features/Notice/constants'
 import type { Notice } from '@/features/Notice/types'
-import type { ListApiRequest } from '@/shared/api/dmrsApi'
+import type { ListApiRequest } from '@/shared/api'
 import { Antd } from '@/shared/components/du-admin-ui/Antd'
 import Table from '@/shared/components/du-admin-ui/Table'
 import { useCustomQuery } from '@/shared/hooks/useCustomQuery'

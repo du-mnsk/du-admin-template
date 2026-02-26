@@ -33,7 +33,7 @@ const HeaderActionWrapper = styled.div`
   .ant-badge {
     font-size: 1.25rem;
 
-    @media only screen and (${media.minMd}) {
+    @media only screen and (${media.md}) {
       font-size: 1.625rem;
     }
   }

@@ -1,0 +1,7 @@
+export { default as DashboardPage } from './DashboardPage'
+export { default as Detail1Page } from './Detail1Page'
+export { default as Detail2Page } from './Detail2Page'
+export { default as Detail3Page } from './Detail3Page'
+export { default as Detail4Page } from './Detail4Page'
+export { default as ListPage } from './ListPage'
+export { default as StatisticsPage } from './StatisticsPage'

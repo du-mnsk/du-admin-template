@@ -1,12 +1,20 @@
+import { MenuOutlined } from '@ant-design/icons'
 import { Col, Layout, Row } from 'antd'
 import styled from 'styled-components'
 
 import logo from '@/assets/logo.png'
+import { Antd } from '@/shared/components/du-admin-ui/Antd'
+import type { MainLayoutProps } from '@/shared/components/layouts/MainLayout'
 import { HeaderFullscreen } from '@/shared/components/layouts/MainLayout/Header/_components/HeaderFullscreen'
 import { ProfileDropdown } from '@/shared/components/layouts/MainLayout/Header/_components/ProfileDropdown'
+import { useResponsive } from '@/shared/hooks/useResponsive'
 import { LAYOUT, media } from '@/styles/themes/constants'
 
-const Header = () => {
+const Header = (props: MainLayoutProps) => {
+  const { handleToggleSider, isPopupWindow } = props
+  const { mobileOnly, tabletOnly } = useResponsive()
+  const showHamburger = !isPopupWindow && (mobileOnly || tabletOnly)
+
   return (
     <HeaderWrap>
       <Row justify="space-between" align="middle">
@@ -23,9 +31,21 @@ const Header = () => {
                 </Col>
               </Row>
             </Col>
-            <Col>
-              <ProfileDropdown />
-            </Col>
+            {!showHamburger && (
+              <Col>
+                <ProfileDropdown />
+              </Col>
+            )}
+            {showHamburger && (
+              <Col>
+                <Antd.Button
+                  type="text"
+                  icon={<MenuOutlined />}
+                  onClick={handleToggleSider}
+                  aria-label="메뉴 열기"
+                />
+              </Col>
+            )}
           </Row>
         </Col>
       </Row>
@@ -38,7 +58,7 @@ export default Header
 const HeaderWrap = styled(Layout.Header)`
   line-height: 1.5;
 
-  @media only screen and ${media.minMd} {
+  @media only screen and (${media.md}) {
     padding: ${LAYOUT.desktop.paddingVertical} ${LAYOUT.desktop.paddingHorizontal};
     height: ${LAYOUT.desktop.headerHeight};
   }

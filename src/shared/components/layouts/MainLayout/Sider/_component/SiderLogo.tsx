@@ -1,10 +1,19 @@
 import type { FC } from 'react'
 import styled, { css } from 'styled-components'
 
+import { useAuth } from '@/shared/auth/AuthProvider'
 import type { MainLayoutProps } from '@/shared/components/layouts/MainLayout'
+import { useResponsive } from '@/shared/hooks/useResponsive'
 import { LAYOUT, media } from '@/styles/themes/constants'
 
+const FALLBACK_USER = { UserName: '템플릿유저', UserID: 'template' }
+
 export const SiderLogo: FC<MainLayoutProps> = ({ handleToggleSider, siderToggleState }) => {
+  const auth = useAuth()
+  const { mobileOnly, tabletOnly } = useResponsive()
+  const displayUser = auth ?? FALLBACK_USER
+  const showUserInSider = mobileOnly || tabletOnly
+  const { isTablet } = useResponsive()
   return (
     <SiderLogoDiv $siderToggleState={siderToggleState}>
       <svg
@@ -21,6 +30,9 @@ export const SiderLogo: FC<MainLayoutProps> = ({ handleToggleSider, siderToggleS
           fill="white"
         />
       </svg>
+      {showUserInSider && !siderToggleState && (
+        <SiderUserName>{`${displayUser.UserName} [${displayUser.UserID}]`}</SiderUserName>
+      )}
     </SiderLogoDiv>
   )
 }
@@ -31,6 +43,7 @@ const SiderLogoDiv = styled.div<{ $siderToggleState: boolean }>`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 8px;
 
   ${(props) =>
     props.$siderToggleState
@@ -41,9 +54,18 @@ const SiderLogoDiv = styled.div<{ $siderToggleState: boolean }>`
           justify-content: space-between;
         `}
 
-  @media only screen and ${media.minMd} {
+  @media only screen and (${media.md}) {
     height: ${LAYOUT.desktop.headerHeight};
     padding-top: ${LAYOUT.desktop.paddingVertical};
     padding-bottom: ${LAYOUT.desktop.paddingVertical};
   }
+`
+
+const SiderUserName = styled.span`
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-sider-secondary-color, inherit);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `

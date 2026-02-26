@@ -18,6 +18,7 @@ import FormUploadCertFile from '@/shared/components/du-admin-ui/Form/uploadCertF
 import FormUploadDragger from '@/shared/components/du-admin-ui/Form/uploadDragger'
 import FormUploadReplaceDragger from '@/shared/components/du-admin-ui/Form/uploadReplaceDragger'
 import { notificationController } from '@/shared/utils/notificationController'
+import { ROW_GUTTER } from '@/styles/themes/constants'
 
 export interface FormInterface<T> extends React.FC<T> {
   Checkbox: typeof FormCheckbox
@@ -102,9 +103,9 @@ const Form: FormInterface<FormProps> = ({
       {...props}
       onFinish={onFinish}
     >
-      <Row gutter={{ xs: 10, md: 15, xl: 30 }}>{children}</Row>
+      <Row gutter={ROW_GUTTER.form}>{children}</Row>
       {!!footer && (
-        <Row gutter={[10, 10]} wrap={false} justify={'end'}>
+        <Row gutter={ROW_GUTTER.section} wrap={false} justify={'end'}>
           {footer}
         </Row>
       )}

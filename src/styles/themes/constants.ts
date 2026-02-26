@@ -15,6 +15,15 @@ export const BASE_COLORS = {
   red: '#ff5252',
 }
 
+export const ROW_GUTTER = {
+  form: [10, 0] as [number, number],
+  section: [10, 10] as [number, number],
+  panel: [10, 20] as [number, number],
+  verticalOnly: [0, 20] as [number, number],
+  
+}
+export const CARD_BODY_PADDING = 20
+
 export const LAYOUT = {
   mobile: {
     paddingVertical: '0.6rem',
@@ -53,29 +62,33 @@ export const FONT_WEIGHT = {
 }
 
 
-export const BREAKPOINT = {
+export const BREAKPOINTS = {
   xs: 360,
-  sm: 640,
+  sm: 568,
   md: 768,
-  lg: 1024,
+  lg: 992,
   xl: 1280,
   xxl: 1920,
 } as const
 
 export const MQ_EPSILON = 0.02
 
+/** react-responsive useMediaQuery용: 괄호로 감싼 미디어 쿼리 문자열 반환 */
 export const mediaQuery = {
-  minWidth: (bp: number) => `min-width: ${bp}px`,
-  maxWidth: (bp: number) => `max-width: ${bp - MQ_EPSILON}px`,
+  minWidth: (bp: number) => `(min-width: ${bp}px)`,
+  maxWidth: (bp: number) => `(max-width: ${bp - MQ_EPSILON}px)`,
   between: (min: number, max: number) =>
-    `min-width: ${min}px and max-width: ${max - MQ_EPSILON}px`,
+    `(min-width: ${min}px and max-width: ${max - MQ_EPSILON}px)`,
 } as const
 
+const getMedia = <T extends number>(breakpoint: T): `(min-width: ${T}px)` =>
+  `(min-width: ${breakpoint}px)`
+
 export const media = {
-  minXs: mediaQuery.minWidth(BREAKPOINT.xs),
-  minSm: mediaQuery.minWidth(BREAKPOINT.sm),
-  minMd: mediaQuery.minWidth(BREAKPOINT.md),
-  minLg: mediaQuery.minWidth(BREAKPOINT.lg),
-  minXl: mediaQuery.minWidth(BREAKPOINT.xl),
-  minXxl: mediaQuery.minWidth(BREAKPOINT.xxl),
-} as const
+  xs: getMedia(BREAKPOINTS.xs),
+  sm: getMedia(BREAKPOINTS.sm),
+  md: getMedia(BREAKPOINTS.md),
+  lg: getMedia(BREAKPOINTS.lg),
+  xl: getMedia(BREAKPOINTS.xl),
+  xxl: getMedia(BREAKPOINTS.xxl),
+}

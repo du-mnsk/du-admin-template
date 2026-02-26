@@ -2,6 +2,7 @@ import { Col, Row } from 'antd'
 
 import { Antd } from '@/shared/components/du-admin-ui/Antd'
 import Table from '@/shared/components/du-admin-ui/Table'
+import { TemplateCard } from '@/shared/components/ui-template'
 import { ROW_GUTTER } from '@/styles/themes/constants'
 
 const dashboardStats = [
@@ -13,13 +14,12 @@ const dashboardStats = [
 
 const DashboardPage = () => {
   const handleRefresh = () => {
-    console.log('새로고침')
+    // 새로고침
   }
 
   return (
-    <>
-      <Antd.Card>
-        <Row justify="space-between" align="middle" style={{ marginBottom: 16 }}>
+    <TemplateCard title="대시보드" loading={false}>
+      <Row justify="space-between" align="middle" style={{ marginBottom: 16 }}>
           <Col>
             <span style={{ color: '#666', fontSize: 14 }}>
               집계 기준: 2025-02-19 14:00
@@ -57,15 +57,15 @@ const DashboardPage = () => {
           </Col>
           <Col span={24} lg={12}>
             <Antd.Card title="요약 테이블" size="small">
-              <Table data={[]} rowKey="key" />
-              <Table.Column title="Name" dataIndex="name" key="name" />
-              <Table.Column title="Age" dataIndex="Age" key="Age" />
-              <Table.Column title="Address" dataIndex="Address" key="Address" />
+              <Table data={[]} rowKey="key">
+                <Table.Column title="Name" dataIndex="name" key="name" />
+                <Table.Column title="Age" dataIndex="age" key="age" />
+                <Table.Column title="Address" dataIndex="address" key="address" />
+              </Table>
             </Antd.Card>
           </Col>
         </Row>
-      </Antd.Card>
-    </>
+    </TemplateCard>
   )
 }
 

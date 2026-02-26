@@ -10,7 +10,7 @@ export interface ReferencesProps {
 export const References: React.FC<ReferencesProps> = ({ year }) => {
   return (
     <S.ReferencesWrapper>
-      <S.Text>Copyright &copy; ${year} (주)데이터유니버스. All Rights Reserved. </S.Text>
+      <S.Text>Copyright &copy; {year} (주)데이터유니버스. All Rights Reserved. </S.Text>
     </S.ReferencesWrapper>
   )
 }

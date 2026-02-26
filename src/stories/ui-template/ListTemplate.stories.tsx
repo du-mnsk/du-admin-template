@@ -2,8 +2,8 @@ import type { Meta, StoryObj } from '@storybook/react-vite'
 import { Col, Row, Space, Typography } from 'antd'
 import dayjs from 'dayjs'
 
-import { listTemplate1MockData } from '@/features/ui-templates/mockData'
-import type { ListTemplate1Row } from '@/features/ui-templates/types'
+import { listMockData } from '@/features/ui-templates/mockData'
+import type { ListPageRow } from '@/features/ui-templates/types'
 import { Antd } from '@/shared/components/du-admin-ui/Antd'
 import Table from '@/shared/components/du-admin-ui/Table'
 import { NoticeBoxDefault, TemplateCard } from '@/shared/components/ui-template'
@@ -76,12 +76,12 @@ export const ListTemplate: Story = {
           <Col span={24}>
             <Table<ListTemplate1Row>
               rowKey="regDt"
-              data={listTemplate1MockData}
+              data={listMockData}
               loading={false}
               pagination={{
                 pageSize: 10,
                 current: 1,
-                total: listTemplate1MockData.length,
+                total: listMockData.length,
               }}
               onChange={() => {}}
               onClickRow={() => {}}
@@ -130,7 +130,7 @@ export const ListTemplate: Story = {
 
 
 /** Row 1 위치에 버튼만 */
-export const List: Story = {
+export const ListButtons: Story = {
   ...ListTemplate,
   args: { row1Content: 'buttons' },
 }

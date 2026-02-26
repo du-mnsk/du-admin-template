@@ -7,6 +7,7 @@
 import { Col, Row, Space } from 'antd'
 
 import { Antd } from '@/shared/components/du-admin-ui/Antd'
+import { TemplateCard } from '@/shared/components/ui-template'
 import { ROW_GUTTER } from '@/styles/themes/constants'
 
 const statisticsTableData = [
@@ -23,11 +24,11 @@ const statisticsColumns = [
 
 const StatisticsPage = () => {
   const handleSearch = () => {
-    console.log('검색')
+    // 검색
   }
 
   return (
-    <Antd.Card title="통계 (Statistics)">
+    <TemplateCard title="통계 (Statistics)" loading={false}>
       {/* 상단: 조건 영역 */}
       <Row gutter={ROW_GUTTER.section} style={{ marginBottom: 20 }}>
         <Col>
@@ -75,7 +76,7 @@ const StatisticsPage = () => {
           </Antd.Card>
         </Col>
       </Row>
-    </Antd.Card>
+    </TemplateCard>
   )
 }
 

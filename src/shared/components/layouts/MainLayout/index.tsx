@@ -63,7 +63,8 @@ const MainLayout = () => {
 export default MainLayout
 
 const LayoutMaster = styled(Layout)`
-  height: 100vh;
+  height: 100%;
+  min-height: 100vh;
 `
 
 const LayoutMain = styled(Layout)<{

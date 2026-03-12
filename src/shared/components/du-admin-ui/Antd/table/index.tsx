@@ -1,4 +1,4 @@
-import '@/shared/components/du-admin-ui/Antd/Table/Table.less'
+import '@/shared/components/du-admin-ui/Antd/table/Table.less'
 
 import React from 'react'
 import  { Table, type TableProps } from 'antd'

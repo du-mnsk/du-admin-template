@@ -2,7 +2,7 @@ import { useState } from 'react'
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import { Button, message } from 'antd'
 
-import { VerificationCodeInput } from './index'
+import { VerificationCodeInput } from '@/shared/components/du-admin-ui/VerificationCodeInput'
 
 const meta = {
   title: 'Common/VerificationCodeInput',

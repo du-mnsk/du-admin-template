@@ -1,6 +1,6 @@
 import { DashboardOutlined } from '@ant-design/icons'
 
-import DashboardPage from '@/features/dashboard/pages/DashboadPage'
+import DashboardPage from '@/features/Dashboard/pages/DashboadPage'
 import type { IRoute } from '@/routes/types'
 
 const togetherRoutes: IRoute[] = [

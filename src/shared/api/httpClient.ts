@@ -21,21 +21,21 @@ const httpApi = axios.create({
 httpApi.interceptors.response.use(
   (response) => {
     const apiRespponse = response.data as ApiResponse<any>
-    if (!!apiRespponse.Header && apiRespponse.Header.ErrCode === 9999) {
-      localStorage.removeItem('auth')
+    // if (!!apiRespponse.Header && apiRespponse.Header.ErrCode === 9999) {
+    //   localStorage.removeItem('auth')
 
-      if (apiRespponse.Header.CmdType.toString() !== CMD_TYPE.LOGOUT.toString()) {
-        // 세션 만료
-        notificationController.error({
-          key: `${apiRespponse.Header.ErrCode}`,
-          message: `로그인 세션이 만료되었습니다.`,
-          duration: 3,
-        })
-        setTimeout(() => {
-          location.href = '/login'
-        }, 1000)
-      }
-    }
+    //   if (apiRespponse.Header.CmdType.toString() !== CMD_TYPE.LOGOUT.toString()) {
+    //     // 세션 만료
+    //     notificationController.error({
+    //       key: `${apiRespponse.Header.ErrCode}`,
+    //       message: `로그인 세션이 만료되었습니다.`,
+    //       duration: 3,
+    //     })
+    //     setTimeout(() => {
+    //       location.href = '/login'
+    //     }, 1000)
+    //   }
+    // }
 
     return response
   },

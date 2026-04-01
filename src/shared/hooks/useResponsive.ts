@@ -1,9 +1,8 @@
-// @app/hooks/useResponsive.ts
-import { useMediaQuery } from "react-responsive"
+import { type MediaQueryAllQueryable, type MediaQueryMatchers, useMediaQuery } from "react-responsive"
 
-import { BREAKPOINT, mediaQuery } from "@/styles/themes/constants"
+import { BREAKPOINTS, mediaQuery } from "@/styles/themes/constants"
 
-export interface ResponsiveReturnValues {
+interface ResponsiveReturnValues {
   isMobile: boolean
   isTablet: boolean
   isDesktop: boolean
@@ -11,44 +10,47 @@ export interface ResponsiveReturnValues {
   mobileOnly: boolean
   tabletOnly: boolean
   desktopOnly: boolean
+  useMediaQuery: (
+    settings: Partial<MediaQueryAllQueryable & { query?: string | undefined }>,
+    device?: MediaQueryMatchers,
+    callback?: (matches: boolean) => void,
+  ) => boolean
 }
 
 export const useResponsive = (): ResponsiveReturnValues => {
+  const isMobile = useMediaQuery({ 
+    query: mediaQuery.minWidth(BREAKPOINTS.xs) 
+  })
+  const isTablet = useMediaQuery({ 
+    query: mediaQuery.minWidth(BREAKPOINTS.md) 
+  })
+  const isDesktop = useMediaQuery({ 
+    query: mediaQuery.minWidth(BREAKPOINTS.xl) 
+  })
+  const isBigScreen = useMediaQuery({ 
+    query: mediaQuery.minWidth(BREAKPOINTS.xxl) 
+  })
+
   const mobileOnly = useMediaQuery({
-    query: mediaQuery.maxWidth(BREAKPOINT.sm),  // 0~639.98px
+    query: mediaQuery.maxWidth(BREAKPOINTS.md),
   })
 
   const tabletOnly = useMediaQuery({
-    query: mediaQuery.between(BREAKPOINT.sm, BREAKPOINT.xl),  // 640~1279.98px
+    query: mediaQuery.between(BREAKPOINTS.md, BREAKPOINTS.xl),
   })
 
   const desktopOnly = useMediaQuery({
-    query: mediaQuery.between(BREAKPOINT.xl, BREAKPOINT.xxl),  // 1280~1919.98px
-  })
-
-  const isBigScreen = useMediaQuery({
-    query: mediaQuery.minWidth(BREAKPOINT.xxl),  // 1920px~
-  })
-
-  const isMobile = useMediaQuery({
-    query: mediaQuery.maxWidth(BREAKPOINT.sm),  // 0~639.98px
-  })
-  
-  const isTablet = useMediaQuery({
-    query: mediaQuery.maxWidth(BREAKPOINT.xl),  // 0~1279.98px
-  })
-  
-  const isDesktop = useMediaQuery({
-    query: mediaQuery.maxWidth(BREAKPOINT.xxl),  // 0~1919.98px
+    query: mediaQuery.between(BREAKPOINTS.xl, BREAKPOINTS.xxl),
   })
 
   return {
-    isMobile,      
-    isTablet,      
-    isDesktop,     
-    isBigScreen,   
-    mobileOnly,    
-    tabletOnly,    
-    desktopOnly,   
+    isMobile,
+    isTablet,
+    isDesktop,
+    isBigScreen,
+    mobileOnly,
+    tabletOnly,
+    desktopOnly,
+    useMediaQuery,
   }
 }

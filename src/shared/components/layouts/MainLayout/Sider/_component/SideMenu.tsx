@@ -3,33 +3,43 @@ import { Link } from 'react-router-dom'
 import { Menu as AntMenu } from 'antd'
 import styled from 'styled-components'
 
+import routes from '@/routes'
+import togetherRoutes from '@/routes/together'
 import type { IRoute } from '@/routes/types'
+import { useAuth } from '@/shared/auth/AuthProvider'
 import type { MainLayoutProps } from '@/shared/components/layouts/MainLayout'
-import useLocalStorage from '@/shared/hooks/useLocalStorage'
+import { useResponsive } from '@/shared/hooks/useResponsive'
 import useRouter from '@/shared/hooks/useRouter'
 import { FONT_SIZE } from '@/styles/themes/constants'
 
-import { type AuthInfo, DomainType } from '../../tempTypes'
+import { DomainType } from '../../tempTypes'
 
 const SideMenu = (props: MainLayoutProps) => {
   const { handleToggleSider, siderToggleState } = props
+  const { mobileOnly } = useResponsive()
   const [selectedKeys, setSelectedKeys] = useState<string[]>([])
   const [openKeys, setOpenKeys] = useState<string[]>([])
-  //TODO: COUPONPROVIDER 추가
   const { subRoutes, mainRoute } =
     useRouter()
-  const { sessionValue: auth } = useLocalStorage<AuthInfo>('auth')
+  const auth = useAuth()
 
-  const showRoutes: IRoute[] = []
-  // if (auth?.Type === DomainType.TOGETHER) {
-  //   showRoutes = togetherAuthRoutes
-  // } else if (auth?.Type === DomainType.COUPONPROVIDER) {
-  //   showRoutes = couponProviderAuthRoutes
-  // } else if (auth) {
-  //   showRoutes = authRoutes.filter(
-  //     (route: IRoute, idx: number) => route.path === 'dashboard' || auth.AuthType[idx - 1] == '1',
-  //   )
-  // }
+  let showRoutes: IRoute[] = []
+  if (auth?.Type === DomainType.TOGETHER) {
+    showRoutes = togetherRoutes
+  } else if (auth?.Type === DomainType.COUPONPROVIDER) {
+    showRoutes = routes
+  } else if (auth) {
+    const hasAuthType = auth.AuthType != null && String(auth.AuthType).length > 0
+    showRoutes = hasAuthType
+      ? routes.filter(
+          (route: IRoute, idx: number) =>
+            route.path === 'dashboard' || auth.AuthType?.[idx - 1] === '1',
+        )
+      : routes
+  } else {
+    // 비로그인 시 메인 라우트 전체 노출 등 필요 시 조정
+    showRoutes = routes
+  }
 
   useEffect(() => {
     subRoutes && setOpenKeys(subRoutes.map((r:IRoute) => r.pageId))
@@ -64,7 +74,9 @@ const SideMenu = (props: MainLayoutProps) => {
       ) : (
         !nav.title.includes('확인중') && (
           <Menu.Item key={nav.pageId} title={nav.title} icon={nav.icon}>
-            <Link to={`${path}/${nav.path}`}>{`${nav.title}`}</Link>
+            <Link to={`${path}/${nav.path}`} onClick={() => mobileOnly && handleToggleSider()}>
+              {`${nav.title}`}
+            </Link>
           </Menu.Item>
         )
       )

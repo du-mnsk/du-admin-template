@@ -13,6 +13,13 @@ export enum QUERY_NAME {
     INSERT_NOTICE = 'InsertNotice',
     UPDATE_NOTICE = 'UpdateNotice',
     DELETE_NOTICE = 'DeleteNotice',
+    // Coupon
+    SELECT_COUPON_FREE_LIST = 'SelectCouponFreeList',
+    SELECT_COUPON_FREE_COUNT = 'SelectCouponFreeCount',
+    SELECT_COUPON_DETAIL = 'SelectCouponDetail',
+    INSERT_FREE_COUPON = 'InsertFreeCoupon',
+    UPDATE_FREE_COUPON = 'UpdateFreeCoupon',
+    DELETE_FREE_COUPON = 'DeleteFreeCoupon',
   }
   
   export enum CMD_TYPE {

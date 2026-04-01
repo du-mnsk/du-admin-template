@@ -1,6 +1,6 @@
 import type dayjs from "dayjs"
 
-import { dmrsApi, type SelectRequestBodyData } from "@/shared/api/dmrsApi"
+import { dmrsApi, type SelectRequestBodyData } from "@/shared/api"
 import { QUERY_NAME } from "@/shared/types/constants"
 import { renderDt } from "@/shared/utils/date"
 

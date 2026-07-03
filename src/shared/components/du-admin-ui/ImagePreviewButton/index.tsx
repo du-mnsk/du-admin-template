@@ -6,6 +6,7 @@ import type { AntdButtonProps } from '@/shared/components/du-admin-ui/Antd/butto
 
 export interface ImagePreviewButtonProps extends AntdButtonProps {
   image?: string
+  label?: string
 }
 
 export const ImagePreviewButton: React.FC<ImagePreviewButtonProps> = (
@@ -25,7 +26,9 @@ export const ImagePreviewButton: React.FC<ImagePreviewButtonProps> = (
 
   return (
     <>
-      <Typography.Link onClick={(e) => handleClickImage(e)}>보기</Typography.Link>
+      <Typography.Link onClick={(e) => handleClickImage(e)}>
+        {props.label ?? '보기'}
+      </Typography.Link>
       <S.PreviewImage
         src={props.image}
         preview={{

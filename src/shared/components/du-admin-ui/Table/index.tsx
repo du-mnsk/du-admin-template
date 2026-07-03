@@ -12,7 +12,15 @@ import React, {
   useState,
 } from 'react'
 import { PictureFilled, SearchOutlined } from '@ant-design/icons'
-import { Col, Image, Row, Slider, Space, Table as AntdTable, type TablePaginationConfig } from 'antd'
+import {
+  Col,
+  Image,
+  Row,
+  Slider,
+  Space,
+  Table as AntdTable,
+  type TablePaginationConfig,
+} from 'antd'
 import type { ColumnType } from 'antd/lib/table'
 import type { FilterValue, SorterResult, TableRowSelection } from 'antd/lib/table/interface'
 import dayjs from 'dayjs'
@@ -72,6 +80,8 @@ export interface TableProps<T> {
   previewImageId?: string | undefined
   components?: TableComponents<T>
   summaryValues?: (number | string)[] | undefined
+  summary?: (pageData: readonly T[]) => ReactNode
+  rowClassName?: string | ((record: T, index: number) => string)
   rowSelection?: TableRowSelection<T> | undefined
   scroll?: (RcTableProps<T>['scroll'] & { scrollToFirstRowOnChange?: boolean }) | undefined
   footer?: PanelRender<T>
@@ -104,13 +114,7 @@ interface SearchRangeFilterProps {
 }
 
 // Helper Components
-const FilterButtons = ({
-  onReset,
-  onConfirm,
-}: {
-  onReset: () => void
-  onConfirm: () => void
-}) => (
+const FilterButtons = ({ onReset, onConfirm }: { onReset: () => void; onConfirm: () => void }) => (
   <Space style={FILTER_STYLES.space}>
     <Antd.Button onClick={onReset} size="small" type="text" style={FILTER_STYLES.button}>
       {TABLE_TEXT.RESET}
@@ -145,6 +149,27 @@ function isTableColumnElement<T>(child: ReactNode): child is ReactElement<TableC
   return isValidElement(child) && (child as ReactElement).type === Table.Column
 }
 
+function isTableColumnGroupElement(child: ReactNode): child is ReactElement<{
+  title?: ReactNode
+  children?: ReactNode
+}> {
+  return isValidElement(child) && (child as ReactElement).type === AntdTable.ColumnGroup
+}
+
+/** 그룹 컬럼 포함 시 필터/정렬용으로 leaf 컬럼만 펼침 */
+function flattenLeafTableColumns<T>(cols: ColumnType<T>[]): TableColumnProps<T>[] {
+  const result: TableColumnProps<T>[] = []
+  for (const col of cols) {
+    const nested = (col as ColumnType<T> & { children?: ColumnType<T>[] }).children
+    if (nested?.length) {
+      result.push(...flattenLeafTableColumns(nested))
+    } else if (col.dataIndex !== undefined) {
+      result.push(col as TableColumnProps<T>)
+    }
+  }
+  return result
+}
+
 function Table<T>({
   id,
   rowKey,
@@ -159,6 +184,8 @@ function Table<T>({
   previewImageId,
   components,
   summaryValues,
+  summary: summaryRender,
+  rowClassName,
   rowSelection,
   scroll,
   footer,
@@ -375,15 +402,16 @@ function Table<T>({
     const newColumns: ColumnType<T>[] = []
     const processedDataIndexes = new Set<string>()
 
-    for (const child of Children.toArray(children)) {
-      if (!isTableColumnElement<T>(child)) continue
-
-      const colProps = child.props as TableColumnProps<T>
+    const processColumnElement = (
+      columnEl: ReactElement<TableColumnProps<T>>,
+      seen: Set<string>,
+    ): ColumnType<T> | null => {
+      const colProps = columnEl.props
       const dataIndex = colProps.dataIndex as string
 
-      if (!dataIndex || processedDataIndexes.has(dataIndex)) continue
+      if (!dataIndex || seen.has(dataIndex)) return null
 
-      processedDataIndexes.add(dataIndex)
+      seen.add(dataIndex)
       let enhancedProps: ColumnType<T> = { ...colProps }
 
       // Apply search filter
@@ -429,14 +457,40 @@ function Table<T>({
 
       // Process nested children
       if (colProps.children) {
-        const nestedChildren = Children.toArray(colProps.children).map(
-          (child: ReactNode) => (isValidElement(child) ? child.props : child),
+        const nestedChildren = Children.toArray(colProps.children).map((child: ReactNode) =>
+          isValidElement(child) ? child.props : child,
         )
-        // ColumnType<T>에 children이 없을 수 있으므로 타입 단언 사용
-        ;(enhancedProps as any).children = nestedChildren
+        ;(enhancedProps as ColumnType<T> & { children?: unknown }).children = nestedChildren
       }
 
-      newColumns.push(enhancedProps)
+      return enhancedProps
+    }
+
+    for (const child of Children.toArray(children)) {
+      if (isTableColumnGroupElement(child)) {
+        const groupProps = child.props
+        const seenInGroup = new Set<string>()
+        const groupCols: ColumnType<T>[] = []
+
+        for (const colChild of Children.toArray(groupProps.children ?? [])) {
+          if (!isTableColumnElement<T>(colChild)) continue
+          const col = processColumnElement(colChild, seenInGroup)
+          if (col) groupCols.push(col)
+        }
+
+        if (groupCols.length > 0) {
+          newColumns.push({
+            title: groupProps.title,
+            children: groupCols,
+          } as ColumnType<T>)
+        }
+        continue
+      }
+
+      if (!isTableColumnElement<T>(child)) continue
+
+      const col = processColumnElement(child, processedDataIndexes)
+      if (col) newColumns.push(col)
     }
 
     return newColumns
@@ -476,7 +530,9 @@ function Table<T>({
       // Handle multi-search columns (comma-separated values)
       if (
         findColumn.searchFilter &&
-        MULTI_SEARCH_COLUMNS.includes(findColumn.dataIndex as typeof MULTI_SEARCH_COLUMNS[number]) &&
+        MULTI_SEARCH_COLUMNS.includes(
+          findColumn.dataIndex as (typeof MULTI_SEARCH_COLUMNS)[number],
+        ) &&
         Array.isArray(filterVal) &&
         typeof filterVal[0] === 'string'
       ) {
@@ -538,7 +594,7 @@ function Table<T>({
     filters: Record<string, FilterValue | null>,
     sorter: SorterResult<T> | SorterResult<T>[],
   ) => {
-    const tableColumns = renderColumns.map((col) => col as unknown as TableColumnProps<T>)
+    const tableColumns = flattenLeafTableColumns(renderColumns)
     const processedFilters = processFilters(filters, tableColumns)
     const processedSorter = processSorter(sorter, tableColumns)
 
@@ -547,22 +603,25 @@ function Table<T>({
   }
 
   // Summary Renderer
-  const summary = () => {
-    return (
-      <>
-        <AntdTable.Summary.Row>
-          <AntdTable.Summary.Cell index={0} key={0} align="center">
-            {TABLE_TEXT.SUMMARY}
-          </AntdTable.Summary.Cell>
-          {summaryValues?.map((val, i) => (
-            <AntdTable.Summary.Cell index={i + 1} key={i + 1} align="center">
-              {val}
-            </AntdTable.Summary.Cell>
-          ))}
-        </AntdTable.Summary.Row>
-      </>
-    )
-  }
+  const summary = () => (
+    <AntdTable.Summary.Row>
+      <AntdTable.Summary.Cell index={0} key={0} align="center">
+        {TABLE_TEXT.SUMMARY}
+      </AntdTable.Summary.Cell>
+      {summaryValues?.map((val, i) => (
+        <AntdTable.Summary.Cell index={i + 1} key={i + 1} align="center">
+          {val}
+        </AntdTable.Summary.Cell>
+      ))}
+    </AntdTable.Summary.Row>
+  )
+
+  const tableSummaryProp =
+    data?.length && summaryRender
+      ? (pageData: readonly T[]) => <AntdTable.Summary>{summaryRender(pageData)}</AntdTable.Summary>
+      : data?.length && summaryValues
+        ? () => <AntdTable.Summary>{summary()}</AntdTable.Summary>
+        : undefined
 
   // Pagination Config
   const paginationConfig = pagination
@@ -627,7 +686,8 @@ function Table<T>({
         bordered
         title={titleRenderer}
         scroll={scroll}
-        summary={data?.length && summaryValues ? summary : undefined}
+        rowClassName={rowClassName}
+        summary={tableSummaryProp}
         footer={footer}
       />
       <Image
@@ -652,6 +712,8 @@ const column: React.FC<TableColumnProps<any>> = () => {
 }
 
 Table.Column = column
+Table.Summary = AntdTable.Summary
+Table.ColumnGroup = AntdTable.ColumnGroup
 
 // eslint-disable-next-line react/display-name
 Table.Top = (props: TableTopWrapperProps) => {

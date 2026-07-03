@@ -32,6 +32,7 @@ const MainLayout = () => {
   }, [isNarrow])
 
   const { sessionValue: auth } = useLocalStorage<any>('auth')
+  // const accessToken = localStorage.getItem('accessToken') // JWT 방식사용시 추가
 
   const handleToggleSider = () => setSiderToggleState(!siderToggleState)
 
@@ -39,10 +40,10 @@ const MainLayout = () => {
     window.scrollTo(0, 0)
   }, [pathname])
 
-  //TODO: 로그인 체크 추가(현재 페이지 접근을 위해 임시 주석)
+  //TODO: 로그인 체크 추가 (현재 페이지 접근을 위해 임시 주석)
   // useEffect(() => {
-  //   !auth && navigate('/login')
-  // }, [navigate, pathname, auth])
+  //   !auth && !accessToken && navigate('/login')
+  // }, [navigate, pathname, auth, accessToken])
 
   const props: MainLayoutProps = {
     siderToggleState,
@@ -80,12 +81,12 @@ const LayoutMain = styled(Layout)<{
             margin-left: 0px;
           `
         : props.$siderToggleState
-        ? css`
-            margin-left: 80px;
-          `
-        : css`
-            margin-left: 260px;
-          `}
+          ? css`
+              margin-left: 80px;
+            `
+          : css`
+              margin-left: 260px;
+            `}
   }
 
   @media only screen and (${media.xl}) {
@@ -95,11 +96,11 @@ const LayoutMain = styled(Layout)<{
             margin-left: 0px;
           `
         : props.$siderToggleState
-        ? css`
-            margin-left: 80px;
-          `
-        : css`
-            margin-left: 260px;
-          `}
+          ? css`
+              margin-left: 80px;
+            `
+          : css`
+              margin-left: 260px;
+            `}
   }
 `

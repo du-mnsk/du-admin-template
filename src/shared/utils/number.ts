@@ -50,3 +50,16 @@ export const renderPhone = (phone: string) => {
   if (!phone) return ''
   return phone.replace(/(\d{3})(\d{3,4})(\d{4})/, '$1-$2-$3')
 }
+
+/**
+ * 숫자를 가격 문자열로 변환 (천 단위 구분 + ' 원' 단위)
+ * @param n - 변환할 숫자
+ * @returns 가격 형식 문자열 (예: '1,234 원'), NaN이면 'NaN'
+ * @example
+ * renderPrice(1234)   // '1,234 원'
+ * renderPrice(0)      // '0 원'
+ * renderPrice(NaN)    // 'NaN'
+ */
+export const renderPrice = (n: number): string => {
+  return isNaN(n) ? n + '' : n.toLocaleString() + ' 원'
+}

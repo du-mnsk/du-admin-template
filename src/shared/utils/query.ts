@@ -10,7 +10,7 @@ export const convertFilterToQuery = (filters: Record<string, FilterValue | null>
     const value = filters[key]
     if (value && Array.isArray(value) && value.length > 0) {
       if (value.length === 1) {
-        conditions.push(`${key} = '${value[0]}'`)
+        conditions.push(`${key} LIKE '%${value[0]}%'`)
       } else {
         const values = value.map((v) => `'${v}'`).join(', ')
         conditions.push(`${key} IN (${values})`)

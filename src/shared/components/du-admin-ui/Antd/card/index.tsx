@@ -5,11 +5,9 @@ import styled from 'styled-components'
 import { useResponsive } from '@/shared/hooks/useResponsive'
 import { FONT_SIZE, FONT_WEIGHT, media } from '@/styles/themes/constants'
 
-
 interface CardInternalProps {
   $autoHeight: boolean
 }
-
 
 export interface AntdCardProps extends CardProps {
   className?: string
@@ -38,7 +36,7 @@ export const AntdCard: React.FC<AntdCardProps> = ({
 }
 
 const S = {
-  Card : styled(Card)<CardInternalProps>`
+  Card: styled(Card)<CardInternalProps>`
     display: flex;
     flex-direction: column;
 
@@ -57,7 +55,7 @@ const S = {
         padding-bottom: 0;
       }
 
-      @media only screen and ${media.minXl} {
+      @media only screen and (${media.xl}) {
         font-size: ${FONT_SIZE.xxl};
 
         .ant-card-head-title {
@@ -73,5 +71,5 @@ const S = {
         font-size: ${FONT_SIZE.xs};
       }
     }
-  `
+  `,
 }

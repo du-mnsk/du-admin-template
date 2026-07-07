@@ -35,11 +35,11 @@ const S = {
 
     background-color: var(--background-color);
 
-    @media only screen and ${media.minMd} {
+    @media only screen and (${media.md}) {
       padding: 2.5rem 6.25rem 6.25rem;
     }
 
-    @media only screen and ${media.minXl} {
+    @media only screen and (${media.xl}) {
       flex-direction: row-reverse;
       justify-content: center;
       padding: 12.5rem 3.5rem;
@@ -48,7 +48,7 @@ const S = {
   Image: styled(Image)`
     margin-bottom: 4rem;
 
-    @media only screen and ${media.minXxl} {
+    @media only screen and (${media.xxl}) {
       margin-bottom: 0;
     }
   `,
@@ -57,7 +57,7 @@ const S = {
     flex-direction: column;
     align-items: center;
 
-    @media only screen and ${media.minXl} {
+    @media only screen and (${media.xl}) {
       margin-right: 7.5rem;
     }
   `,
@@ -68,12 +68,12 @@ const S = {
 
     color: var(--text-main-color);
 
-    @media only screen and ${media.minMd} {
+    @media only screen and (${media.md}) {
       font-size: 3rem;
       margin-bottom: 1.75rem;
     }
 
-    @media only screen and ${media.minXl} {
+    @media only screen and (${media.xl}) {
       font-size: 4rem;
       margin-bottom: 2.25rem;
     }
@@ -82,14 +82,14 @@ const S = {
     font-size: 0.875rem;
     margin-bottom: 1.25rem;
 
-    @media only screen and ${media.minMd} {
+    @media only screen and (${media.md}) {
       font-size: 1.12rem;
       margin-bottom: 1.45rem;
     }
 
-    @media only screen and ${media.minXl} {
+    @media only screen and (${media.xl}) {
       font-size: 1.5rem;
       margin-bottom: 1.8rem;
     }
-  `
+  `,
 }

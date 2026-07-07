@@ -12,7 +12,15 @@ import React, {
   useState,
 } from 'react'
 import { PictureFilled, SearchOutlined } from '@ant-design/icons'
-import { Col, Image, Row, Slider, Space, Table as AntdTable, type TablePaginationConfig } from 'antd'
+import {
+  Col,
+  Image,
+  Row,
+  Slider,
+  Space,
+  Table as AntdTable,
+  type TablePaginationConfig,
+} from 'antd'
 import type { ColumnType } from 'antd/lib/table'
 import type { FilterValue, SorterResult, TableRowSelection } from 'antd/lib/table/interface'
 import dayjs from 'dayjs'
@@ -104,13 +112,7 @@ interface SearchRangeFilterProps {
 }
 
 // Helper Components
-const FilterButtons = ({
-  onReset,
-  onConfirm,
-}: {
-  onReset: () => void
-  onConfirm: () => void
-}) => (
+const FilterButtons = ({ onReset, onConfirm }: { onReset: () => void; onConfirm: () => void }) => (
   <Space style={FILTER_STYLES.space}>
     <Antd.Button onClick={onReset} size="small" type="text" style={FILTER_STYLES.button}>
       {TABLE_TEXT.RESET}
@@ -159,6 +161,7 @@ function Table<T>({
   previewImageId,
   components,
   summaryValues,
+  rowClassName,
   rowSelection,
   scroll,
   footer,
@@ -429,8 +432,8 @@ function Table<T>({
 
       // Process nested children
       if (colProps.children) {
-        const nestedChildren = Children.toArray(colProps.children).map(
-          (child: ReactNode) => (isValidElement(child) ? child.props : child),
+        const nestedChildren = Children.toArray(colProps.children).map((child: ReactNode) =>
+          isValidElement(child) ? child.props : child,
         )
         // ColumnType<T>에 children이 없을 수 있으므로 타입 단언 사용
         ;(enhancedProps as any).children = nestedChildren
@@ -476,7 +479,9 @@ function Table<T>({
       // Handle multi-search columns (comma-separated values)
       if (
         findColumn.searchFilter &&
-        MULTI_SEARCH_COLUMNS.includes(findColumn.dataIndex as typeof MULTI_SEARCH_COLUMNS[number]) &&
+        MULTI_SEARCH_COLUMNS.includes(
+          findColumn.dataIndex as (typeof MULTI_SEARCH_COLUMNS)[number],
+        ) &&
         Array.isArray(filterVal) &&
         typeof filterVal[0] === 'string'
       ) {
@@ -627,6 +632,7 @@ function Table<T>({
         bordered
         title={titleRenderer}
         scroll={scroll}
+        rowClassName={rowClassName}
         summary={data?.length && summaryValues ? summary : undefined}
         footer={footer}
       />
@@ -652,6 +658,8 @@ const column: React.FC<TableColumnProps<any>> = () => {
 }
 
 Table.Column = column
+Table.ColumnGroup = AntdTable.ColumnGroup
+Table.Summary = AntdTable.Summary
 
 // eslint-disable-next-line react/display-name
 Table.Top = (props: TableTopWrapperProps) => {

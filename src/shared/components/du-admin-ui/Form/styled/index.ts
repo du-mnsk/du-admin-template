@@ -3,13 +3,12 @@ import styled, { css } from 'styled-components'
 
 import { FONT_SIZE, FONT_WEIGHT, media } from '@/styles/themes/constants'
 
-
 export const FormTitleStyled = styled(Typography.Text)`
   font-weight: 700;
   font-size: 1rem;
   display: block;
 
-  @media only screen and (${media.minMd}) {
+  @media only screen and (${media.md}) {
     font-size: 1.125rem;
   }
 `
@@ -63,12 +62,12 @@ export const FormItem = styled(Form.Item)<FormItemProps>`
       font-size: 1.25rem;
     }
 
-    @media only screen and (${media.minMd}) {
+    @media only screen and (${media.md}) {
       width: 5.5rem;
       font-size: 1.125rem;
     }
 
-    @media only screen and (${media.minXl}) {
+    @media only screen and (${media.xl}) {
       font-size: 1.5rem;
     }
   }
@@ -176,7 +175,7 @@ export const DraggerTitle = styled.div`
   font-weight: ${FONT_WEIGHT.bold};
 `
 export const DraggerDescription = styled.div`
-  font-size: ${FONT_SIZE.md};
+  font-size: ${FONT_SIZE.xs};
   padding: 0 1rem;
 `
 

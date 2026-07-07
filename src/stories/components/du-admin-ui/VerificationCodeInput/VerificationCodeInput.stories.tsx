@@ -36,7 +36,7 @@ type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
   args: {
-    length: 6,
+    length: 4,
     autoFocus: true,
   },
 }
@@ -124,7 +124,7 @@ export const Interactive: Story = {
   render: () => {
     const [value, setValue] = useState('')
     const [isComplete, setIsComplete] = useState(false)
-    
+
     return (
       <div>
         <VerificationCodeInput

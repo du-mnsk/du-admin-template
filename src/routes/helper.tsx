@@ -60,6 +60,7 @@ export const findSubMenuChildByPath = (path: string) => {
   return parentRoute && parentRoute.child
 }
 
+// 기존 JWT 미사용 방식
 export const loadCheckSession = async (pageId: PAGE_ID) => {
   const auth = localStorage.getItem('auth')
   if (!auth) {
@@ -100,6 +101,32 @@ export const loadCheckSession = async (pageId: PAGE_ID) => {
     //       return false
     //     })
   }
+}
+
+// 신규 JWT 사용 방식
+export const loadCheckPagePermission = async (pageId: PAGE_ID) => {
+  if (!pageId || typeof pageId !== 'string' || pageId.length === 0) {
+    return false
+  }
+  // const auth = localStorage.getItem('auth')
+  // const accessToken = localStorage.getItem('accessToken')
+  // if (!auth || !accessToken) {
+  //   alert('로그인 정보가 없습니다.')
+  //   window.location.href = `${getBasePath()}/login`
+  //   return false
+  // }
+  // const authData = auth && JSON.parse(auth)
+  // const authIndex = pageId[0] === 'A' ? 8 : parseInt(pageId[0]) - 2
+  // if (
+  //   authIndex >= 0 &&
+  //   authData.Permission[authIndex] == '0' &&
+  //   authData.LoginType === DomainType.ADMIN
+  // ) {
+  //   alert('접근권한이 없습니다.')
+  //   window.location.href = `${getBasePath()}/`
+  //   return false
+  // }
+  // return true
 }
 
 export const getRoutes = (routes: IRoute[]): RouteObject[] => {

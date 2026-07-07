@@ -1,7 +1,7 @@
-import '@/shared/components/du-admin-ui/Antd/table/Table.less'
+import '@/shared/components/du-admin-ui/Antd/Table/Table.less'
 
 import React from 'react'
-import  { Table, type TableProps } from 'antd'
+import { Table, type TableProps } from 'antd'
 import styled from 'styled-components'
 
 import { FONT_SIZE } from '@/styles/themes/constants'
@@ -10,7 +10,7 @@ export interface AntdTableProps<T> extends TableProps<T> {
   className?: string
 }
 
-export const AntdTable: React.FC<AntdTableProps<any>> = ({className, ...props}) => {
+export const AntdTable: React.FC<AntdTableProps<any>> = ({ className, ...props }) => {
   return <S.Table className={className} {...props} />
 }
 
@@ -69,10 +69,18 @@ const S = {
     &
       .ant-table-thead
       > tr
-      > th:not(:last-child):not(.ant-table-selection-column):not(.ant-table-row-expand-icon-cell):not(
-        [colspan]
-      )::before {
+      > th:not(:last-child):not(.ant-table-selection-column):not(
+        .ant-table-row-expand-icon-cell
+      ):not([colspan])::before {
       background-color: var(--primary-color);
+    }
+
+    & .ant-table-tbody > tr.ant-table-row-selected > td {
+      background-color: #ebeef2;
+    }
+
+    & .ant-table-tbody > tr.ant-table-row-selected:hover > td {
+      background-color: #ebeef2;
     }
 
     & .ant-pagination-prev,
@@ -182,5 +190,5 @@ const S = {
           `
       }
     }}
-  `
+  `,
 }

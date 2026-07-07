@@ -1,11 +1,10 @@
-import type dayjs from "dayjs"
+import type dayjs from 'dayjs'
 
-import { dmrsApi, type SelectRequestBodyData } from "@/shared/api"
-import { QUERY_NAME } from "@/shared/types/constants"
-import { renderDt } from "@/shared/utils/date"
+import { dmrsApi, type SelectRequestBodyData } from '@/shared/api'
+import { QUERY_NAME } from '@/shared/types/constants'
+import { renderDt } from '@/shared/utils/date'
 
-import type { PartnerSelection } from "./type.example"
-
+import type { PartnerSelection } from './v1.0/type.example'
 
 /* 제휴사 PCode 목록 조회 API */
 export const SelectPartnerSelectionListQueryOption = (date?: dayjs.Dayjs) => {

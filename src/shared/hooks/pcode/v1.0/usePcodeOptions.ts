@@ -1,12 +1,11 @@
-import { useMemo } from "react"
+import { useMemo } from 'react'
 
-import type { FormSelectItem } from "@/shared/components/du-admin-ui/Form/select"
-import { isEmptyString } from "@/shared/utils/string"
+import type { FormSelectItem } from '@/shared/components/du-admin-ui/Form/select'
+import { isEmptyString } from '@/shared/utils/string'
 
-import { useCustomQuery } from "../useCustomQuery"
-import { SelectPartnerSelectionListQueryOption } from "./api.example"
-import type { PartnerSelection } from "./type.example"
-
+import { useCustomQuery } from '../../useCustomQuery'
+import { SelectPartnerSelectionListQueryOption } from '../api.example'
+import type { PartnerSelection } from './type.example'
 
 /**
  * 공통 어드민(템플릿)에서 사용하는 제휴사(PGroup/PCode) 선택 옵션 훅

@@ -51,7 +51,7 @@ const S = {
       font-weight: 600;
       background-color: var(--background-color);
 
-      @media only screen and ${media.minMd} {
+      @media only screen and (${media.md}) {
         font-size: 1rem;
       }
 

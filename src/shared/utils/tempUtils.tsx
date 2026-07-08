@@ -5,9 +5,13 @@ import axios from 'axios'
 import EventEmitter from 'eventemitter3'
 import { saveAs } from 'file-saver'
 import type { UploadRequestOption } from 'rc-upload/lib/interface'
+import { v4 as uuidV4 } from 'uuid'
+
+import type { ApiRequest, ApiResponse } from '@/shared/api/api.types'
+import { CMD_TYPE } from '@/shared/types/constants'
+import type { ImageUploadResponse } from '@/shared/types/types'
 
 import httpApi from '../api/httpClient'
-
 
 export const requestRegisterImage = (request: UploadRequestOption, savePath: string) => {
   const formData = new FormData()
@@ -16,6 +20,32 @@ export const requestRegisterImage = (request: UploadRequestOption, savePath: str
   httpApi.post('/', formData).then((response) => {
     return request.onSuccess && request.onSuccess(response.data)
   })
+}
+
+export const requestRegisterImageReplace = (request: UploadRequestOption, path: string) => {
+  const formData = new FormData()
+  formData.append('CmdType', String(CMD_TYPE.UPLOAD_IMAGE_REPLACE))
+  formData.append('RequestID', uuidV4())
+  formData.append('ImgType', path)
+  formData.append('Image', request.file)
+
+  return httpApi.post<ApiResponse<ImageUploadResponse>>('', formData, {
+    baseURL: import.meta.env.VITE_IMAGE_UPLOAD_SERVER_URL,
+  })
+}
+
+export const requestDeleteImage = () => {
+  return {
+    mutationKey: [CMD_TYPE.DELETE_IMAGE_REPLACE],
+    mutationFn: async (ImgPath: string) => {
+      const request: ApiRequest<{ ImgPath: string }> = {
+        Header: { CmdType: CMD_TYPE.DELETE_IMAGE_REPLACE, RequestID: uuidV4() },
+        Body: { ImgPath: ImgPath },
+      }
+
+      return await httpApi.post<ApiResponse<unknown>>('', request)
+    },
+  }
 }
 
 export const isEmptyString = (value: string | undefined | null) => {
@@ -43,7 +73,6 @@ export const downloadFile = async (url: string, options?: DownloadFileOption) =>
   document.body.removeChild(a)
   window.URL.revokeObjectURL(url)
 }
-
 
 export class ChartOptionBuilder {
   title?: object

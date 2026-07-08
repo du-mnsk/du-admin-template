@@ -18,3 +18,9 @@ export const TelecomItems = [
     value: Telecom.LGUP,
   },
 ]
+
+export enum ERRORCODES_COMMON {
+  SUCCESS = 0,
+  ERROR = 1,
+  ERROR_IMAGE_ALREADY_EXISTS = 4000003,
+}
